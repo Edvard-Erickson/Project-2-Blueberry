@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 7b69628e8e28a9e409af83f54cb3167e
+  productGUID: aaeec2c277b54704b9d052e333cc822c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: BlueBerry
+  productName: Project-2-Blueberry
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -630,14 +630,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: BlueBerry
+  metroPackageName: Project-2-Blueberry
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: BlueBerry
+  metroApplicationDescription: Project-2-Blueberry
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -706,10 +706,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: de09399b-ac45-46ef-9101-6b8f6f327827
+  cloudProjectId: a443ea87-438c-4ea9-b9f5-49aaffc09d25
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: BlueBerry 2024-10-30_21-38-16
+  projectName: Project-2-Blueberry
   organizationId: edvarderickson
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
