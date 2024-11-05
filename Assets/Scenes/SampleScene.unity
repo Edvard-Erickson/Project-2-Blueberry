@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 306417125}
   - component: {fileID: 306417124}
   - component: {fileID: 306417123}
+  - component: {fileID: 306417128}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -238,10 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d13930b744fa974a8772fa11b161a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 5860275240698309158, guid: 013fcc627ccef934e885e55d5b3fcb50, type: 3}
+  Projectile: {fileID: 4846559256495998398, guid: 013fcc627ccef934e885e55d5b3fcb50, type: 3}
   endOfGun: {fileID: 286096557}
   canFire: 1
-  timeBetweenFiring: 0.5
+  timeBetweenFiring: 0.1
+  bulletSpeed: 70
+  speed: 3
 --- !u!60 &306417124
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -437,6 +440,36 @@ Transform:
   - {fileID: 286096557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306417128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306417122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 68df2fd042de5a44dbaa5da4ec3a5a31, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -9,17 +10,22 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject Projectile;
     public Transform endOfGun;
+    Rigidbody2D rbody;
 
     private float timer;
 
     public bool canFire;
     public float timeBetweenFiring;
 
+    public float bulletSpeed;
+    public float speed;
+
 
     // Start is called before the first frame update
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        rbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -32,6 +38,8 @@ public class PlayerScript : MonoBehaviour
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+        Vector3 direction = (mousePos - transform.position).normalized;
 
         if (!canFire)
         {
@@ -46,8 +54,15 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetMouseButton(0) && canFire)
         {
             canFire = false;
-            Instantiate(Projectile, endOfGun.position, Quaternion.identity);
+            GameObject bullet = Instantiate(Projectile, endOfGun.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
 
         }
+    }
+
+    void OnMove(InputValue value)
+    {
+        Vector2 moveVal = value.Get<Vector2>();
+        rbody.velocity = moveVal * speed;
     }
 }
