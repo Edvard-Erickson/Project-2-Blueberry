@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject Projectile;
     public Transform endOfGun;
+    public Transform centerOfGun;
     Rigidbody2D rbody;
 
     private float timer;
@@ -19,6 +20,8 @@ public class PlayerScript : MonoBehaviour
 
     public float bulletSpeed;
     public float speed;
+
+    public float cameraSmoothSpeed;
 
 
     // Start is called before the first frame update
@@ -31,6 +34,10 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, -10);
+        Vector3 smoothedPosition = Vector3.Lerp(mainCam.transform.position, desiredPosition, cameraSmoothSpeed);
+        mainCam.transform.position = smoothedPosition;
+
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 rotation = mousePos - transform.position;
@@ -54,8 +61,9 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetMouseButton(0) && canFire)
         {
             canFire = false;
+            Vector3 bulletDirection = (endOfGun.position - centerOfGun.position).normalized;
             GameObject bullet = Instantiate(Projectile, endOfGun.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+            bullet.GetComponent<Rigidbody2D>().velocity =  bulletDirection * bulletSpeed;
 
         }
     }
