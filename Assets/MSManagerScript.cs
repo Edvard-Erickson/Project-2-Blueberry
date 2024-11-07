@@ -46,6 +46,18 @@ public class MSManagerScript : MonoBehaviour
         {
             StartRound();
         }
+
+        // Check if the 'O' key is pressed and if a door is nearby
+        if (Input.GetKeyDown(openDoorKey))
+        { 
+            DoorScript nearestDoor = findNearestDoor();
+            //checks if door is nearby
+            if (nearestDoor != null)
+            {
+                door = nearestDoor;
+                openDoor();        
+            }
+        }
     }
 
     void StartRound()
@@ -117,6 +129,7 @@ public class MSManagerScript : MonoBehaviour
             playerScore -= 1000;
             playerScoreText.text = "Score " + playerScore;
         }
+        door.openDoor(); //delete, only for testing
     }
 
     private DoorScript findNearestDoor()
@@ -133,7 +146,7 @@ public class MSManagerScript : MonoBehaviour
         //loops through DoorScripts
         foreach (DoorScript door in doors)
         {
-            //if door is active game object and the player is nearby to that door, think this is bad check as of now
+            //if door is active game object and the player is nearby to that door
             if (door.isActiveAndEnabled && door.isPlayerNearby())
             {
                 //calculate distance between player and door
@@ -145,6 +158,7 @@ public class MSManagerScript : MonoBehaviour
                 }
             }
         }
+        //returns the nearest door, or null if there is no door nearby
         return nearestDoor;
     }
 }

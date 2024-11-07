@@ -6,10 +6,13 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-    [SerializeField] private Sprite closedDoorSprite;
-    [SerializeField] private Sprite openDoorSprite;
-    [SerializeField] private float dectectionRange = 3f;
-    [SerializeField] private LayerMask playerLayer;
+    public Sprite closedDoorSprite;
+    public Sprite openDoorSprite;
+    public float detectionRange = 3f;
+    public LayerMask playerLayer;
+
+    public Transform playerTransform;
+
 
 
     public SpriteRenderer spriteRenderer;
@@ -30,13 +33,27 @@ public class DoorScript : MonoBehaviour
     // opens the door by changing the SpriteRenderer and turning the colider of
     public void openDoor()
     {
+        Debug.Log("opening door");
         spriteRenderer.sprite = openDoorSprite;
         doorColider.enabled = false;
     }
 
     public bool isPlayerNearby()
     {
-        //implement
-        return true;
+    
+        // Direction from door to player
+        Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, playerLayer);
+
+        // Return true if the ray hits the player
+        return hit.collider != null && hit.collider.CompareTag("Player");   
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+
 }
