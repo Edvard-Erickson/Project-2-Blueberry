@@ -18,6 +18,7 @@ public class ZombieScript : MonoBehaviour
     public float rotationSpeed;
 
     public float collisionAvoidanceDistance;
+    public MSManagerScript MSMScript;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class ZombieScript : MonoBehaviour
     {
         if(health <= 0)
         {
+            MSMScript.killedZombie();
             //play death animations/particle
             Destroy(gameObject);
         }

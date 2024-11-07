@@ -9,6 +9,8 @@ public class BulletScript : MonoBehaviour
     public LayerMask collisionLayers;
     public int damage;
 
+    public MSManagerScript MSMScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class BulletScript : MonoBehaviour
         {
             if (hit.collider.CompareTag("Zombie"))
             {
+                MSMScript.hitZombie();
                 hit.collider.GetComponent<ZombieScript>().health -= damage;
             }
             Destroy(gameObject);

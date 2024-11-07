@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MSManagerScript : MonoBehaviour
@@ -14,6 +15,12 @@ public class MSManagerScript : MonoBehaviour
     private int zombiesAlive;
 
     private int currentRound = 0;
+
+    private int playerScore;
+    public TextMeshProUGUI playerScoreText;
+
+    public DoorScript door;
+    public KeyCode openDoorKey = KeyCode.O;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +46,8 @@ public class MSManagerScript : MonoBehaviour
 
     void StartRound()
     {
+        playerScore = 0;
+        playerScoreText.text = "Score " + playerScore;
         currentRound += 1;
         roundInProgress = true;
         spawnZombies();
@@ -80,4 +89,28 @@ public class MSManagerScript : MonoBehaviour
         }
     }
 
+    //adds 10 to playerScore each time the player hits a zombie
+    public void hitZombie()
+    {
+        playerScore += 10;
+        playerScoreText.text = "Score " + playerScore;
+    }
+
+    //adds 100 to playerScore each time the player kills a zombie
+    public void killedZombie()
+    {
+        playerScore += 100;
+        playerScoreText.text = "Score " + playerScore;
+    }
+
+    //activates when the 'O' key is pressed near a door
+    void openDoor()
+    {
+        if (playerScore >= 1000)
+        {
+            door.openDoor();
+            playerScore -= 1000;
+            playerScoreText.text = "Score " + playerScore;
+        }
+    }
 }

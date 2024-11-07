@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     public Transform endOfGun;
     public Transform centerOfGun;
     Rigidbody2D rbody;
+    
 
     private float timer;
 
