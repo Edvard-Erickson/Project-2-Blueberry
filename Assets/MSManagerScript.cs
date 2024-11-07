@@ -22,6 +22,8 @@ public class MSManagerScript : MonoBehaviour
     public TextMeshProUGUI roundNumber;
     public TextMeshProUGUI healthIndicator;
 
+    public Transform playerPosition;
+
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.O;
 
@@ -45,6 +47,18 @@ public class MSManagerScript : MonoBehaviour
         else
         {
             StartRound();
+        }
+
+        // Check if the 'O' key is pressed and if a door is nearby
+        if (Input.GetKeyDown(openDoorKey))
+        { 
+            DoorScript nearestDoor = findNearestDoor();
+            //checks if door is nearby
+            if (nearestDoor != null)
+            {
+                door = nearestDoor;
+                openDoor();        
+            }
         }
     }
 
@@ -122,5 +136,36 @@ public class MSManagerScript : MonoBehaviour
             playerScore -= 1000;
             playerScoreText.text = "Score " + playerScore;
         }
+        door.openDoor(); //delete, only for testing
+    }
+
+    private DoorScript findNearestDoor()
+    {
+        //puts every object with DoorScript attached to it in an array
+        DoorScript[] doors = FindObjectsOfType<DoorScript>();
+
+        //placeholder variable to keep track of the nearest door
+        DoorScript nearestDoor = null;
+
+        //placeholder variable to keep track of the 
+        float minDistance = Mathf.Infinity;
+
+        //loops through DoorScripts
+        foreach (DoorScript door in doors)
+        {
+            //if door is active game object and the player is nearby to that door
+            if (door.isActiveAndEnabled && door.isPlayerNearby())
+            {
+                //calculate distance between player and door
+                float distance = Vector2.Distance(door.transform.position, playerPosition.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestDoor = door;
+                }
+            }
+        }
+        //returns the nearest door, or null if there is no door nearby
+        return nearestDoor;
     }
 }
