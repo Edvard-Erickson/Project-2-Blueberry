@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 240209679960020840}
   - component: {fileID: 2825774497515771737}
   - component: {fileID: 4296291500366869911}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Zombie
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -280,14 +280,16 @@ MonoBehaviour:
   player: {fileID: 0}
   target: {fileID: 0}
   targetDirection: {x: 0, y: 0}
-  health: 100
+  ps: {fileID: 3441576761955549948, guid: 11b0badda1993534fa5574b95764b00f, type: 3}
+  health: 50
   damage: 1
   speed: 2
   collisionLayerMask:
     serializedVersion: 2
     m_Bits: 256
   rotationSpeed: 5
-  collisionAvoidanceDistance: 0.5
+  collisionAvoidanceDistance: 1
+  MSMScript: {fileID: 0}
 --- !u!1 &4943699454935115875
 GameObject:
   m_ObjectHideFlags: 0

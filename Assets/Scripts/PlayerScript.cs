@@ -23,6 +23,10 @@ public class PlayerScript : MonoBehaviour
 
     public float cameraSmoothSpeed;
 
+    public int health;
+    public int maxHealth;
+    public float regenDelay;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,5 +76,21 @@ public class PlayerScript : MonoBehaviour
     {
         Vector2 moveVal = value.Get<Vector2>();
         rbody.velocity = moveVal * speed;
+    }
+
+    void ManageHealth()
+    {
+        if (health <= 0)
+        {
+            //die
+        } else if (health < maxHealth)
+        {
+            StartCoroutine(RegenerateHealth());
+        }
+    }
+
+    IEnumerator RegenerateHealth()
+    {
+        yield return new WaitForSeconds(regenDelay);
     }
 }

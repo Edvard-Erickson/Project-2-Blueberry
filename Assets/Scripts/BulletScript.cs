@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     public int bulletSpeed;
     public LayerMask collisionLayers;
     public int damage;
+    public ParticleSystem ps;
 
     public MSManagerScript MSMScript;
 
@@ -32,6 +33,7 @@ public class BulletScript : MonoBehaviour
                 MSMScript.hitZombie();
                 hit.collider.GetComponent<ZombieScript>().health -= damage;
             }
+            Instantiate(ps, hit.collider.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

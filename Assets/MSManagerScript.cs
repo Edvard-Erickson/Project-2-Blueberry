@@ -14,10 +14,11 @@ public class MSManagerScript : MonoBehaviour
     private bool roundInProgress;
     private int zombiesAlive;
 
-    private int currentRound = 0;
+    private int currentRound;
 
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
+    public TextMeshProUGUI roundNumber;
 
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.O;
@@ -25,6 +26,7 @@ public class MSManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentRound = 0;
         StartRound();
     }
 
@@ -46,21 +48,21 @@ public class MSManagerScript : MonoBehaviour
 
     void StartRound()
     {
-        playerScore = 0;
         playerScoreText.text = "Score " + playerScore;
         currentRound += 1;
-        roundInProgress = true;
-        spawnZombies();
         if(currentRound % 5 == 0)
         {
             zombiesPerRound += 10;
-        } else if(currentRound % 2 == 0)
+        } else
         {
             zombiesPerRound += 3;
         }
-        spawnDuration =  zombiesPerRound / 2;
+        spawnDuration =  zombiesPerRound * 2;
         zombiesLeft = zombiesPerRound;
         zombiesAlive = zombiesPerRound;
+        spawnZombies();
+        roundInProgress = true;
+        roundNumber.text = "" + currentRound;
     }
 
     void spawnZombies()
@@ -81,7 +83,7 @@ public class MSManagerScript : MonoBehaviour
         while (zombiesLeft > 0)
         {
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
-            Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation); // Spawn the zombie
+            Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
 
             // Wait for the specified spawn interval before spawning the next one
@@ -101,6 +103,7 @@ public class MSManagerScript : MonoBehaviour
     {
         playerScore += 100;
         playerScoreText.text = "Score " + playerScore;
+        zombiesAlive--;
     }
 
     //activates when the 'O' key is pressed near a door

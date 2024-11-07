@@ -150,6 +150,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   damage: 10
+  ps: {fileID: 8568555048062291883, guid: 820e18698612b7641901c4fc6010f943, type: 3}
+  MSMScript: {fileID: 0}
 --- !u!50 &-8092118840242416649
 Rigidbody2D:
   serializedVersion: 4

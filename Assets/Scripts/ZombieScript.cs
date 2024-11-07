@@ -9,6 +9,7 @@ public class ZombieScript : MonoBehaviour
     public GameObject player;
     public Transform target;
     public Vector2 targetDirection;
+    public ParticleSystem ps;
 
     public int health;
     public int damage;
@@ -41,7 +42,7 @@ public class ZombieScript : MonoBehaviour
         if(health <= 0)
         {
             MSMScript.killedZombie();
-            //play death animations/particle
+            Instantiate(ps, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
