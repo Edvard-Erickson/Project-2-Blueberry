@@ -18,7 +18,6 @@ public class PlayerScript : MonoBehaviour
     public bool canFire;
     public float timeBetweenFiring;
 
-    public float bulletSpeed;
     public float speed;
 
     public float cameraSmoothSpeed;
@@ -63,7 +62,7 @@ public class PlayerScript : MonoBehaviour
             canFire = false;
             Vector3 bulletDirection = (endOfGun.position - centerOfGun.position).normalized;
             GameObject bullet = Instantiate(Projectile, endOfGun.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity =  bulletDirection * bulletSpeed;
+            bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection;
 
         }
     }
