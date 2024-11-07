@@ -6,11 +6,14 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
+    [SerializeField] private Sprite closedDoorSprite;
+    [SerializeField] private Sprite openDoorSprite;
+    [SerializeField] private float dectectionRange = 3f;
+    [SerializeField] private LayerMask playerLayer;
+
+
     public SpriteRenderer spriteRenderer;
     public Collider2D doorColider;
-
-    public Sprite closedDoorSprite;
-    public Sprite openDoorSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,5 +32,11 @@ public class DoorScript : MonoBehaviour
     {
         spriteRenderer.sprite = openDoorSprite;
         doorColider.enabled = false;
+    }
+
+    public bool isPlayerNearby()
+    {
+        //implement
+        return true;
     }
 }
