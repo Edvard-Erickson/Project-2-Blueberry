@@ -16,6 +16,8 @@ public class BulletScript : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody2D>();
         rbody.velocity = rbody.velocity * bulletSpeed;
+        MSMScript = FindAnyObjectByType<MSManagerScript>();
+
     }
 
     // Update is called once per frame

@@ -26,6 +26,7 @@ public class ZombieScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         target = player.transform;
+        MSMScript = FindAnyObjectByType<MSManagerScript>();
     }
 
     // Update is called once per frame
