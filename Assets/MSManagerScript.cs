@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class MSManagerScript : MonoBehaviour
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
+    public TextMeshProUGUI healthIndicator;
 
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.O;
@@ -104,6 +106,11 @@ public class MSManagerScript : MonoBehaviour
         playerScore += 100;
         playerScoreText.text = "Score " + playerScore;
         zombiesAlive--;
+    }
+
+    public void UpdateHealthUI(int health)
+    {
+        healthIndicator.text = string.Concat(Enumerable.Repeat(" *", health));
     }
 
     //activates when the 'O' key is pressed near a door
