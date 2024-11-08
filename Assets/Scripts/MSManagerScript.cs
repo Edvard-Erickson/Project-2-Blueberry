@@ -17,14 +17,11 @@ public class MSManagerScript : MonoBehaviour
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
-<<<<<<< HEAD:Assets/Scripts/MSManagerScript.cs
-=======
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
     public Transform playerPosition;
 
->>>>>>> 8df7d3f7778341669ca89dc6241903d6ede9a3a2:Assets/MSManagerScript.cs
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.E;
     public int roundHighscore;
@@ -35,11 +32,13 @@ public class MSManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         timeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
         startTime = Time.time;
         roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
         currentRound = 0;
         StartRound();
+        
     }
 
     // Update is called once per frame
@@ -63,10 +62,8 @@ public class MSManagerScript : MonoBehaviour
         {
             StartRound();
         }
-<<<<<<< HEAD:Assets/Scripts/MSManagerScript.cs
         playerScoreText.text = "Score " + playerScore;
 
-=======
 
         //checks if player is nearby door to display text
         DoorScript door = findNearestDoor();
@@ -90,7 +87,6 @@ public class MSManagerScript : MonoBehaviour
                 openDoor();        
             }
         }
->>>>>>> 8df7d3f7778341669ca89dc6241903d6ede9a3a2:Assets/MSManagerScript.cs
     }
 
     void StartRound()

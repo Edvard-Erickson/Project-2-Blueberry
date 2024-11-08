@@ -23,6 +23,7 @@ public class DoorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer.sprite = closedDoorSprite;
         doorColider.enabled = true;
         isOpen = false;

@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundHighscoreText: {fileID: 2050639350}
+  timeHighScore: {fileID: 363657384}
 --- !u!4 &105507706
 Transform:
   m_ObjectHideFlags: 0
