@@ -9,7 +9,6 @@ public class MSManagerScript : MonoBehaviour
 {
     public GameObject zombiePrefab;
     public GameObject[] spawnPoints;
-    public GameObject[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
 
