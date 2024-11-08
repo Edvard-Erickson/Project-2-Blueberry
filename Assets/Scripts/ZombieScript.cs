@@ -51,34 +51,52 @@ public class ZombieScript : MonoBehaviour
     }
 
     void MoveTowardsTarget()
+{
+    Vector2 directionToPlayer = (target.position - transform.position).normalized;
+    //float bestAngle = 0f;
+    float closestDistance = Mathf.Infinity;
+    Vector2 bestDirection = directionToPlayer;
+
+    // Perform multiple raycasts around the direction towards the player
+    int numRaycasts = 8;  // Increase this for more precision
+    float angleIncrement = 360f / numRaycasts;
+
+    for (int i = 0; i < numRaycasts; i++)
     {
-        // Determine direction towards the player
-        Vector2 directionToPlayer = (target.position - transform.position).normalized;
+        float angle = i * angleIncrement;
+        Vector2 rayDirection = RotateVector(directionToPlayer, angle);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, collisionAvoidanceDistance, collisionLayerMask);
 
-        // Check for obstacles directly in the path to the player
-        RaycastHit2D obstacleHit = Physics2D.Raycast(transform.position, directionToPlayer, collisionAvoidanceDistance, collisionLayerMask);
-
-        if (obstacleHit.collider != null)
+        if (hit.collider == null)
         {
-            // If an obstacle is detected, find a perpendicular direction to avoid it
-            Vector2 avoidanceDirection = Vector2.Perpendicular(obstacleHit.normal).normalized;
+            // If no obstacle, measure distance to player
+            float distanceToPlayer = Vector2.Distance(transform.position + (Vector3)rayDirection, target.position);
 
-            // Adjust the movement direction to avoid the obstacle
-            targetDirection = Vector2.Lerp(targetDirection, avoidanceDirection, rotationSpeed * Time.deltaTime);
+            // Keep track of the closest path
+            if (distanceToPlayer < closestDistance)
+            {
+                closestDistance = distanceToPlayer;
+                bestDirection = rayDirection;
+            }
         }
-        else
-        {
-            // If no obstacle is detected, move directly towards the player
-            targetDirection = Vector2.Lerp(targetDirection, directionToPlayer, rotationSpeed * Time.deltaTime);
-        }
-
-        // Apply movement to the Rigidbody2D
-        rbody.velocity = targetDirection * speed;
-
-        // Rotate the enemy smoothly to face the direction of movement
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotationSpeed * Time.deltaTime);
     }
+
+    // Move in the best direction found
+    targetDirection = Vector2.Lerp(targetDirection, bestDirection, rotationSpeed * Time.deltaTime);
+    rbody.velocity = targetDirection * speed;
+
+    // Smooth rotation to face movement direction
+    float angleToFace = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angleToFace), rotationSpeed * Time.deltaTime);
+}
+
+Vector2 RotateVector(Vector2 v, float angle)
+{
+    float rad = angle * Mathf.Deg2Rad;
+    float cos = Mathf.Cos(rad);
+    float sin = Mathf.Sin(rad);
+    return new Vector2(cos * v.x - sin * v.y, sin * v.x + cos * v.y);
+}
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

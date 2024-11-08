@@ -32,7 +32,6 @@ public class PlayerScript : MonoBehaviour
 
     public MSManagerScript MSMScript;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +88,7 @@ public class PlayerScript : MonoBehaviour
     {
         health -= 1;
         MSMScript.UpdateHealthUI(health);
+        MSMScript.playerHurtSound();
         if (health <= 0)
         {
             //die
