@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MSManagerScript : MonoBehaviour
 {
     public GameObject zombiePrefab;
+    public GameObject[] spawnPoints;
     public GameObject[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
@@ -27,8 +29,9 @@ public class MSManagerScript : MonoBehaviour
 
     public Transform playerPosition;
 
-    public DoorScript door;
-    public KeyCode openDoorKey = KeyCode.E;
+    public GameObject doorChosen;
+    private KeyCode openDoorKey = KeyCode.E;
+
     private float timeHighscore;
     private float startTime;
     private int roundHighscore;
@@ -62,8 +65,8 @@ public class MSManagerScript : MonoBehaviour
 
 
         //checks if player is nearby door to display text
-        DoorScript door = findNearestDoor();
-        if (door != null && door.doorColider.enabled)
+        GameObject door = findNearestDoor();
+        if (door != null && door.GetComponent<DoorScript>().doorColider.enabled)
         {
             doorText.text = "Press 'E' to open door [cost 1000]";
         }
@@ -71,15 +74,22 @@ public class MSManagerScript : MonoBehaviour
         {
             doorText.text = "";
         }
-        
+
+        if (Input.GetKeyDown(openDoorKey))
+        {
+            Debug.Log("E key pressed");
+        }
+
+
         // Check if the 'E' key is pressed and if a door is nearby
         if (Input.GetKeyDown(openDoorKey))
         { 
-            DoorScript nearestDoor = findNearestDoor();
+            GameObject nearestDoor = findNearestDoor();
             //checks if door is nearby
             if (nearestDoor != null)
             {
-                door = nearestDoor;
+                Debug.Log("trying to open door");
+                doorChosen = nearestDoor;
                 openDoor();        
             }
         }
@@ -120,7 +130,15 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
-            GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
+            GameObject spawnPoint = null;
+            while (spawnPoint == null)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
+                if (!spawnPoint.GetComponent<ZSpawnScript>().isOpen)
+                {
+                    spawnPoint = null;
+                }
+            }
             Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
 
@@ -154,28 +172,29 @@ public class MSManagerScript : MonoBehaviour
     {
         if (playerScore >= 1000)
         {
-            door.openDoor();
+            doorChosen.GetComponent<DoorScript>().openDoor();
             playerScore -= 1000;
             playerScoreText.text = "Score " + playerScore;
         }
     }
 
-    private DoorScript findNearestDoor()
+    private GameObject findNearestDoor()
     {
         //puts every object with DoorScript attached to it in an array
-        DoorScript[] doors = FindObjectsOfType<DoorScript>();
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
 
         //placeholder variable to keep track of the nearest door
-        DoorScript nearestDoor = null;
+        GameObject nearestDoor = null;
 
         //placeholder variable to keep track of the 
         float minDistance = Mathf.Infinity;
 
         //loops through DoorScripts
-        foreach (DoorScript door in doors)
+        foreach (GameObject door in doors)
         {
+            DoorScript doorSr = door.GetComponent<DoorScript>();
             //if door is active game object and the player is nearby to that door
-            if (door.isActiveAndEnabled && door.isPlayerNearby())
+            if (doorSr.isActiveAndEnabled && doorSr.isPlayerNearby())
             {
                 //calculate distance between player and door
                 float distance = Vector2.Distance(door.transform.position, playerPosition.position);
@@ -192,6 +211,36 @@ public class MSManagerScript : MonoBehaviour
 
     public void playerHurtSound() {
         hurtSound.Play();
+    }
+
+    public void GameOver()
+    {
+        // Calculate elapsed time
+        float elapsedTime = Time.time - startTime;
+
+        // Save current round and elapsed time to PlayerPrefs for display in the game over screen
+        PlayerPrefs.SetInt("currentRound", currentRound);
+        PlayerPrefs.SetFloat("timeElapsed", elapsedTime);
+
+        // Check and update round high score
+        int savedRoundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
+        if (currentRound > savedRoundHighscore)
+        {
+            PlayerPrefs.SetInt("roundHighscore", currentRound);
+        }
+
+        // Check and update time high score
+        float savedTimeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
+        if (elapsedTime > savedTimeHighscore)
+        {
+            PlayerPrefs.SetFloat("timeHighscore", elapsedTime);
+        }
+
+        
+        PlayerPrefs.Save();
+
+        
+        SceneManager.LoadScene("endGameScene"); 
     }
 }
 

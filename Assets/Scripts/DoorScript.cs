@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D;
+
 using UnityEngine;
 
 public class DoorScript : MonoBehaviour
@@ -15,8 +15,6 @@ public class DoorScript : MonoBehaviour
     public Transform playerTransform;
 
     public bool isOpen;
-
-
 
     public SpriteRenderer spriteRenderer;
     public Collider2D doorColider;
@@ -41,6 +39,7 @@ public class DoorScript : MonoBehaviour
         Debug.Log("opening door");
         spriteRenderer.sprite = openDoorSprite;
         doorColider.enabled = false;
+        isOpen = true;
     }
 
     public bool isPlayerNearby()

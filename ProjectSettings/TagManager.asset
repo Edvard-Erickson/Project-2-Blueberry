@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Zombie
+  - SpawnPoint
+  - Door
   layers:
   - Default
   - TransparentFX
