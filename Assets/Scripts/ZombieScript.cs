@@ -21,6 +21,9 @@ public class ZombieScript : MonoBehaviour
     public float collisionAvoidanceDistance;
     public MSManagerScript MSMScript;
 
+    public float hitCooldown;
+    private float lastHitTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,4 +79,21 @@ public class ZombieScript : MonoBehaviour
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotationSpeed * Time.deltaTime);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (Time.time >= lastHitTime + hitCooldown) // Check if cooldown has passed
+            {
+                lastHitTime = Time.time; // Update the last hit time
+                PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+                if (player != null)
+                {
+                    player.TakeDamage();
+                }
+            }
+        }
+    }
+
 }
+

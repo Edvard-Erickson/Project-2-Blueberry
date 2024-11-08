@@ -26,6 +26,10 @@ public class PlayerScript : MonoBehaviour
     public int health;
     public int maxHealth;
     public float regenDelay;
+    public float regenRate;
+    private Coroutine regenCoroutine;
+
+    public MSManagerScript MSMScript;
 
 
     // Start is called before the first frame update
@@ -33,6 +37,8 @@ public class PlayerScript : MonoBehaviour
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rbody = GetComponent<Rigidbody2D>();
+        health = maxHealth;
+        MSMScript = FindAnyObjectByType<MSManagerScript>();
     }
 
     // Update is called once per frame
@@ -78,19 +84,43 @@ public class PlayerScript : MonoBehaviour
         rbody.velocity = moveVal * speed;
     }
 
-    void ManageHealth()
+    public void TakeDamage()
     {
+        health -= 1;
+        MSMScript.UpdateHealthUI(health);
         if (health <= 0)
         {
             //die
-        } else if (health < maxHealth)
+            Debug.Log("Player has died");
+            if(regenCoroutine != null)
+            {
+                StopCoroutine(regenCoroutine);
+                regenCoroutine = null;
+            }
+        }
+        else
         {
-            StartCoroutine(RegenerateHealth());
+            if(regenCoroutine != null)
+            {
+                StopCoroutine(regenCoroutine);
+            }
+            regenCoroutine = StartCoroutine(RegenerateHealth());
         }
     }
+
 
     IEnumerator RegenerateHealth()
     {
         yield return new WaitForSeconds(regenDelay);
+
+        while(health < maxHealth)
+        {
+            health++;
+            MSMScript.UpdateHealthUI(health);
+            Debug.Log("health now " + health);
+            yield return new WaitForSeconds(regenRate);
+        }
+
+        regenCoroutine = null;
     }
 }

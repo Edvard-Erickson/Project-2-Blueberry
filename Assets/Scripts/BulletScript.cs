@@ -33,7 +33,7 @@ public class BulletScript : MonoBehaviour
                 MSMScript.hitZombie();
                 hit.collider.GetComponent<ZombieScript>().health -= damage;
             }
-            Instantiate(ps, hit.collider.transform.position, Quaternion.identity);
+            Instantiate(ps, hit.point, Quaternion.identity);
             Destroy(gameObject);
         }
     }
