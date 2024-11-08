@@ -27,10 +27,17 @@ public class MSManagerScript : MonoBehaviour
 
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.E;
+    public int roundHighscore;
 
+    private float startTime;
+    private float elaspedTime;
+    private float timeHighscore;
     // Start is called before the first frame update
     void Start()
     {
+        timeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
+        startTime = Time.time;
+        roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
         currentRound = 0;
         StartRound();
     }
@@ -38,6 +45,13 @@ public class MSManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        elaspedTime = Time.time - startTime;
+        PlayerPrefs.SetFloat("timeElasped", elaspedTime);
+        if (elaspedTime > timeHighscore)
+        {
+            PlayerPrefs.SetFloat("timeHighscore", elaspedTime);
+        }
         if (roundInProgress)
         {
             if(zombiesAlive <= 0)
@@ -78,6 +92,16 @@ public class MSManagerScript : MonoBehaviour
     {
         playerScoreText.text = "Score " + playerScore;
         currentRound += 1;
+        PlayerPrefs.SetInt("currentRound", currentRound);
+        PlayerPrefs.Save();
+        //check if current round is new highscore
+        if(currentRound > roundHighscore)
+        {
+            roundHighscore = currentRound;
+            PlayerPrefs.SetInt("roundHighscore", roundHighscore);
+            PlayerPrefs.Save();
+        }
+
         if(currentRound % 5 == 0)
         {
             zombiesPerRound += 10;
@@ -179,4 +203,6 @@ public class MSManagerScript : MonoBehaviour
         //returns the nearest door, or null if there is no door nearby
         return nearestDoor;
     }
+
+
 }
