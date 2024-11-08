@@ -7,7 +7,7 @@ using UnityEngine;
 public class MSManagerScript : MonoBehaviour
 {
     public GameObject zombiePrefab;
-    public Transform[] spawnPoints;
+    public GameObject[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
 
@@ -29,6 +29,9 @@ public class MSManagerScript : MonoBehaviour
 
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.E;
+    private float timeHighscore;
+    private float startTime;
+    private int roundHighscore;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +42,6 @@ public class MSManagerScript : MonoBehaviour
         roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
         currentRound = 0;
         StartRound();
-        
     }
 
     // Update is called once per frame
@@ -118,8 +120,8 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
-            Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity); // Spawn the zombie
+            GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
+            Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
 
             // Wait for the specified spawn interval before spawning the next one
