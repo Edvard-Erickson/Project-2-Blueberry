@@ -13,7 +13,7 @@ public class loadStartScene : MonoBehaviour
     void Start()
     {
         int currentRound = PlayerPrefs.GetInt("currentRound");
-        float timeElasped = PlayerPrefs.GetFloat("timeElasped");
+        float timeElasped = PlayerPrefs.GetFloat("timeElapsed");
         endGameText.text = "Game Over!\n You survived " + currentRound + " rounds!\n You survived for " + formatTime(timeElasped);
     }
 
@@ -25,6 +25,7 @@ public class loadStartScene : MonoBehaviour
 
     public void startScene()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("startScene");
     }
 

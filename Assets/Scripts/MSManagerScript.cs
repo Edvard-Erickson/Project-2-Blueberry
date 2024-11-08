@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MSManagerScript : MonoBehaviour
 {
@@ -210,6 +211,36 @@ public class MSManagerScript : MonoBehaviour
 
     public void playerHurtSound() {
         hurtSound.Play();
+    }
+
+    public void GameOver()
+    {
+        // Calculate elapsed time
+        float elapsedTime = Time.time - startTime;
+
+        // Save current round and elapsed time to PlayerPrefs for display in the game over screen
+        PlayerPrefs.SetInt("currentRound", currentRound);
+        PlayerPrefs.SetFloat("timeElapsed", elapsedTime);
+
+        // Check and update round high score
+        int savedRoundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
+        if (currentRound > savedRoundHighscore)
+        {
+            PlayerPrefs.SetInt("roundHighscore", currentRound);
+        }
+
+        // Check and update time high score
+        float savedTimeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
+        if (elapsedTime > savedTimeHighscore)
+        {
+            PlayerPrefs.SetFloat("timeHighscore", elapsedTime);
+        }
+
+        
+        PlayerPrefs.Save();
+
+        
+        SceneManager.LoadScene("endGameScene"); 
     }
 }
 

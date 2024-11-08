@@ -14,7 +14,7 @@ public class startScreen : MonoBehaviour
     {
         int roundHighscore = PlayerPrefs.GetInt("roundHighscore",0);
         roundHighscoreText.text = " Round: " + roundHighscore;
-        float time = PlayerPrefs.GetFloat("timeHighscore");
+        float time = PlayerPrefs.GetFloat("timeHighscore", 0);
         timeHighScore.text = " Time: " + formatTime(time);
         
     }
@@ -27,11 +27,14 @@ public class startScreen : MonoBehaviour
 
     public void loadGameScene()
     {
+        
+        
         SceneManager.LoadScene("SampleScene");
     }
 
     public void loadSmallMapScene()
     {
+        
         SceneManager.LoadScene("smallMap");
     }
 

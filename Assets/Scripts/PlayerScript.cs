@@ -98,6 +98,7 @@ public class PlayerScript : MonoBehaviour
                 StopCoroutine(regenCoroutine);
                 regenCoroutine = null;
             }
+            MSMScript.GameOver();
             loadEndGameScene();
         }
         else
@@ -112,6 +113,7 @@ public class PlayerScript : MonoBehaviour
 
     void loadEndGameScene()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("endGameScene");
     }
 
