@@ -821,7 +821,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 5c64b3980a956f64481699538bd3c50f, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -2592,8 +2592,7 @@ MonoBehaviour:
   healthIndicator: {fileID: 81564294}
   doorText: {fileID: 1910019094}
   playerPosition: {fileID: 306417127}
-  door: {fileID: 4784259520091907368, guid: 2a945c212a59fc648a1325d296de2d1a, type: 3}
-  openDoorKey: 111
+  doorChosen: {fileID: 0}
 --- !u!82 &1256592838
 AudioSource:
   m_ObjectHideFlags: 0

@@ -41,6 +41,7 @@ public class DoorScript : MonoBehaviour
         Debug.Log("opening door");
         spriteRenderer.sprite = openDoorSprite;
         doorColider.enabled = false;
+        isOpen = true;
     }
 
     public bool isPlayerNearby()
