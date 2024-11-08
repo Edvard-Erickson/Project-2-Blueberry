@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/smallMap.unity
+    guid: 0795138f2e006c04bb4c1c14b62cede0
+  - enabled: 1
     path: Assets/Scenes/endGameScene.unity
     guid: ad68374aec188bf46b460ac5fc94e735
   m_configObjects: {}
