@@ -14,6 +14,8 @@ public class DoorScript : MonoBehaviour
 
     public Transform playerTransform;
 
+    public bool isOpen;
+
 
 
     public SpriteRenderer spriteRenderer;
@@ -23,6 +25,7 @@ public class DoorScript : MonoBehaviour
     {
         spriteRenderer.sprite = closedDoorSprite;
         doorColider.enabled = true;
+        isOpen = false;
     }
 
     // Update is called once per frame

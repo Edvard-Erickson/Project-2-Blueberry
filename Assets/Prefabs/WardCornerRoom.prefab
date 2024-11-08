@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 3991096243940310343}
   - component: {fileID: 7120329827025737152}
   - component: {fileID: 681809277737557632}
+  - component: {fileID: -5934185045338465979}
   m_Layer: 8
   m_Name: WardCornerRoom
   m_TagString: Untagged
@@ -284,3 +285,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-5934185045338465979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3927424035362270740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26427d176b8b76408707352e0a43e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

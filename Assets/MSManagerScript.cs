@@ -7,7 +7,7 @@ using UnityEngine;
 public class MSManagerScript : MonoBehaviour
 {
     public GameObject zombiePrefab;
-    public Transform[] spawnPoints;
+    public GameObject[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
 
@@ -110,8 +110,17 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
-            Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity); // Spawn the zombie
+            GameObject spawnPoint = null;
+            while(spawnPoint == null)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                if (!spawnPoint.GetComponent<ZSpawnScript>().isOpen)
+                {
+                    spawnPoint = null;
+                }
+                // Pick a random spawn point
+            }
+            Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
 
             // Wait for the specified spawn interval before spawning the next one
