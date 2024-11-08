@@ -9,17 +9,13 @@ public class MSManagerScript : MonoBehaviour
     public Transform[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
-
     private int zombiesLeft;
     private bool roundInProgress;
     private int zombiesAlive;
-
     private int currentRound;
-
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
-
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.O;
 
@@ -44,11 +40,12 @@ public class MSManagerScript : MonoBehaviour
         {
             StartRound();
         }
+        playerScoreText.text = "Score " + playerScore;
+
     }
 
     void StartRound()
     {
-        playerScoreText.text = "Score " + playerScore;
         currentRound += 1;
         if(currentRound % 5 == 0)
         {
@@ -95,14 +92,12 @@ public class MSManagerScript : MonoBehaviour
     public void hitZombie()
     {
         playerScore += 10;
-        playerScoreText.text = "Score " + playerScore;
     }
 
     //adds 100 to playerScore each time the player kills a zombie
     public void killedZombie()
     {
         playerScore += 100;
-        playerScoreText.text = "Score " + playerScore;
         zombiesAlive--;
     }
 
@@ -113,7 +108,6 @@ public class MSManagerScript : MonoBehaviour
         {
             door.openDoor();
             playerScore -= 1000;
-            playerScoreText.text = "Score " + playerScore;
         }
     }
 }
