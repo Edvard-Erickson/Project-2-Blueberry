@@ -30,6 +30,11 @@ public class startScreen : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void loadSmallMapScene()
+    {
+        SceneManager.LoadScene("smallMap");
+    }
+
     string formatTime(float time)
     {
         int minutes = Mathf.FloorToInt(time / 60);
