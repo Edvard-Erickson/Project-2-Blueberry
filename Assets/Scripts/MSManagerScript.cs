@@ -10,21 +10,21 @@ public class MSManagerScript : MonoBehaviour
     public Transform[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
-
     private int zombiesLeft;
     private bool roundInProgress;
     private int zombiesAlive;
-
     private int currentRound;
-
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
+<<<<<<< HEAD:Assets/Scripts/MSManagerScript.cs
+=======
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
     public Transform playerPosition;
 
+>>>>>>> 8df7d3f7778341669ca89dc6241903d6ede9a3a2:Assets/MSManagerScript.cs
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.E;
     public int roundHighscore;
@@ -63,6 +63,10 @@ public class MSManagerScript : MonoBehaviour
         {
             StartRound();
         }
+<<<<<<< HEAD:Assets/Scripts/MSManagerScript.cs
+        playerScoreText.text = "Score " + playerScore;
+
+=======
 
         //checks if player is nearby door to display text
         DoorScript door = findNearestDoor();
@@ -86,11 +90,11 @@ public class MSManagerScript : MonoBehaviour
                 openDoor();        
             }
         }
+>>>>>>> 8df7d3f7778341669ca89dc6241903d6ede9a3a2:Assets/MSManagerScript.cs
     }
 
     void StartRound()
     {
-        playerScoreText.text = "Score " + playerScore;
         currentRound += 1;
         PlayerPrefs.SetInt("currentRound", currentRound);
         PlayerPrefs.Save();
@@ -147,14 +151,12 @@ public class MSManagerScript : MonoBehaviour
     public void hitZombie()
     {
         playerScore += 10;
-        playerScoreText.text = "Score " + playerScore;
     }
 
     //adds 100 to playerScore each time the player kills a zombie
     public void killedZombie()
     {
         playerScore += 100;
-        playerScoreText.text = "Score " + playerScore;
         zombiesAlive--;
     }
 
@@ -170,7 +172,6 @@ public class MSManagerScript : MonoBehaviour
         {
             door.openDoor();
             playerScore -= 1000;
-            playerScoreText.text = "Score " + playerScore;
         }
     }
 
