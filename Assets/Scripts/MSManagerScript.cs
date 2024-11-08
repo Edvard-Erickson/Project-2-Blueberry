@@ -7,16 +7,21 @@ using UnityEngine;
 public class MSManagerScript : MonoBehaviour
 {
     public GameObject zombiePrefab;
-    public GameObject[] spawnPoints;
+    public Transform[] spawnPoints;
     public int zombiesPerRound;
     public float spawnDuration;
+
     private int zombiesLeft;
     private bool roundInProgress;
     private int zombiesAlive;
+
     private int currentRound;
+
     private int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
+    public AudioSource hurtSound;
+
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
@@ -24,11 +29,7 @@ public class MSManagerScript : MonoBehaviour
 
     public DoorScript door;
     public KeyCode openDoorKey = KeyCode.E;
-    public int roundHighscore;
 
-    private float startTime;
-    private float elaspedTime;
-    private float timeHighscore;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,13 +45,6 @@ public class MSManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        elaspedTime = Time.time - startTime;
-        PlayerPrefs.SetFloat("timeElasped", elaspedTime);
-        if (elaspedTime > timeHighscore)
-        {
-            PlayerPrefs.SetFloat("timeHighscore", elaspedTime);
-        }
         if (roundInProgress)
         {
             if(zombiesAlive <= 0)
@@ -92,16 +86,6 @@ public class MSManagerScript : MonoBehaviour
     void StartRound()
     {
         currentRound += 1;
-        PlayerPrefs.SetInt("currentRound", currentRound);
-        PlayerPrefs.Save();
-        //check if current round is new highscore
-        if(currentRound > roundHighscore)
-        {
-            roundHighscore = currentRound;
-            PlayerPrefs.SetInt("roundHighscore", roundHighscore);
-            PlayerPrefs.Save();
-        }
-
         if(currentRound % 5 == 0)
         {
             zombiesPerRound += 10;
@@ -134,17 +118,8 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
-            GameObject spawnPoint = null;
-            while(spawnPoint == null)
-            {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                if (!spawnPoint.GetComponent<ZSpawnScript>().isOpen)
-                {
-                    spawnPoint = null;
-                }
-                // Pick a random spawn point
-            }
-            Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; // Pick a random spawn point
+            Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
 
             // Wait for the specified spawn interval before spawning the next one
@@ -156,12 +131,14 @@ public class MSManagerScript : MonoBehaviour
     public void hitZombie()
     {
         playerScore += 10;
+        playerScoreText.text = "Score " + playerScore;
     }
 
     //adds 100 to playerScore each time the player kills a zombie
     public void killedZombie()
     {
         playerScore += 100;
+        playerScoreText.text = "Score " + playerScore;
         zombiesAlive--;
     }
 
@@ -177,6 +154,7 @@ public class MSManagerScript : MonoBehaviour
         {
             door.openDoor();
             playerScore -= 1000;
+            playerScoreText.text = "Score " + playerScore;
         }
     }
 
@@ -210,5 +188,8 @@ public class MSManagerScript : MonoBehaviour
         return nearestDoor;
     }
 
-
+    public void playerHurtSound() {
+        hurtSound.Play();
+    }
 }
+
