@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -97,6 +98,7 @@ public class PlayerScript : MonoBehaviour
                 StopCoroutine(regenCoroutine);
                 regenCoroutine = null;
             }
+            loadEndGameScene();
         }
         else
         {
@@ -106,6 +108,11 @@ public class PlayerScript : MonoBehaviour
             }
             regenCoroutine = StartCoroutine(RegenerateHealth());
         }
+    }
+
+    void loadEndGameScene()
+    {
+        SceneManager.LoadScene("endGameScene");
     }
 
 
