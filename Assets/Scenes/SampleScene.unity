@@ -2593,7 +2593,7 @@ MonoBehaviour:
   doorText: {fileID: 1910019094}
   playerPosition: {fileID: 306417127}
   door: {fileID: 4784259520091907368, guid: 2a945c212a59fc648a1325d296de2d1a, type: 3}
-  openDoorKey: 111
+  openDoorKey: 101
 --- !u!82 &1256592838
 AudioSource:
   m_ObjectHideFlags: 0
