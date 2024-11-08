@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Visible
+    uniqueID: 426183693
+    locked: 0
