@@ -10,6 +10,7 @@ public class DoorScript : MonoBehaviour
     public Sprite openDoorSprite;
     public float detectionRange = 3f;
     public LayerMask playerLayer;
+    private MSManagerScript MSManagerScript;
 
     public Transform playerTransform;
 
@@ -41,6 +42,7 @@ public class DoorScript : MonoBehaviour
     public bool isPlayerNearby()
     {
     
+        
         // Direction from door to player
         Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
 

@@ -21,11 +21,12 @@ public class MSManagerScript : MonoBehaviour
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
     public TextMeshProUGUI healthIndicator;
+    public TextMeshProUGUI doorText;
 
     public Transform playerPosition;
 
     public DoorScript door;
-    public KeyCode openDoorKey = KeyCode.O;
+    public KeyCode openDoorKey = KeyCode.E;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,18 @@ public class MSManagerScript : MonoBehaviour
             StartRound();
         }
 
-        // Check if the 'O' key is pressed and if a door is nearby
+        //checks if player is nearby door to display text
+        DoorScript door = findNearestDoor();
+        if (door != null && door.doorColider.enabled)
+        {
+            doorText.text = "Press 'E' to open door [cost 1000]";
+        }
+        else
+        {
+            doorText.text = "";
+        }
+        
+        // Check if the 'E' key is pressed and if a door is nearby
         if (Input.GetKeyDown(openDoorKey))
         { 
             DoorScript nearestDoor = findNearestDoor();
@@ -136,7 +148,6 @@ public class MSManagerScript : MonoBehaviour
             playerScore -= 1000;
             playerScoreText.text = "Score " + playerScore;
         }
-        door.openDoor(); //delete, only for testing
     }
 
     private DoorScript findNearestDoor()
