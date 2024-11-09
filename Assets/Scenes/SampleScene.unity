@@ -820,7 +820,7 @@ MonoBehaviour:
   maxHealth: 3
   regenDelay: 4
   regenRate: 3
-  MSMScript: {fileID: 0}
+  MSMScript: {fileID: 1256592837}
 --- !u!60 &306417124
 PolygonCollider2D:
   m_ObjectHideFlags: 0
