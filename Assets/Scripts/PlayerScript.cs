@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -31,6 +32,11 @@ public class PlayerScript : MonoBehaviour
 
     public MSManagerScript MSMScript;
 
+    public bool hasPistol;
+    public bool hasRifle;
+    public bool hasShotgun;
+    public TMP_Text _playerHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +44,9 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
+        hasPistol = true;
+        hasRifle = false;
+        hasShotgun = false;
     }
 
     // Update is called once per frame
@@ -130,5 +139,11 @@ public class PlayerScript : MonoBehaviour
         }
 
         regenCoroutine = null;
+    }
+
+    // call if player purchases more health in the shop
+    public void gainHealth() {
+        _playerHealth.text += " *";
+        maxHealth++;
     }
 }
