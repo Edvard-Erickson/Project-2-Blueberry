@@ -17,7 +17,7 @@ public class MSManagerScript : MonoBehaviour
 
     private int currentRound;
 
-    private int playerScore;
+    public int playerScore;
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
     public AudioSource hurtSound;
@@ -29,10 +29,13 @@ public class MSManagerScript : MonoBehaviour
 
     public GameObject doorChosen;
     private KeyCode openDoorKey = KeyCode.E;
-
+    private KeyCode openShopKey = KeyCode.B;
     private float timeHighscore;
     private float startTime;
     private int roundHighscore;
+    storeScript _storeScript;
+    public GameObject _shop;
+    private bool _shopOpen;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,7 @@ public class MSManagerScript : MonoBehaviour
         roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
         currentRound = 0;
         StartRound();
+        _shopOpen = false;
     }
 
     // Update is called once per frame
@@ -89,6 +93,18 @@ public class MSManagerScript : MonoBehaviour
                 Debug.Log("trying to open door");
                 doorChosen = nearestDoor;
                 openDoor();        
+            }
+        }
+        if (Input.GetKeyDown(openShopKey))
+        {
+            Debug.Log("B key pressed");
+            if (!_shopOpen) {
+                _shop.SetActive(true);
+                _shopOpen = true;
+            }
+            else {
+                _shop.SetActive(false);
+                _shopOpen = false;
             }
         }
     }
