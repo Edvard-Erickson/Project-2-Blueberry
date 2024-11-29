@@ -31,10 +31,14 @@ public class PlayerScript : MonoBehaviour
     private Coroutine regenCoroutine;
 
     public MSManagerScript MSMScript;
-
-    public bool hasPistol;
     public bool hasRifle;
     public bool hasShotgun;
+    public bool hasAutoPistol;
+    public bool hasAutoShotgun;
+    public bool hasDMR;
+    public bool hasSniper;
+    public bool hasLMG;
+    public bool hasSMG;
     public TMP_Text _playerHealth;
 
     // Start is called before the first frame update
@@ -44,9 +48,14 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
-        hasPistol = true;
         hasRifle = false;
         hasShotgun = false;
+        hasAutoPistol = false;
+        hasAutoShotgun = false;
+        hasSniper = false;
+        hasLMG = false;
+        hasSMG = false;
+        hasDMR = false;
     }
 
     // Update is called once per frame
@@ -146,4 +155,21 @@ public class PlayerScript : MonoBehaviour
         _playerHealth.text += " *";
         maxHealth++;
     }
+
+    // bought health script from store
+    /* public void boughtHealth() {
+        if (_playerScript.maxHealth < 5 && _sceneScript.playerScore >= 2500) {
+            _playerScript.gainHealth();
+            _sceneScript.playerScore -= 2500;
+            if (_playerScript.maxHealth == 5) {
+                healthText.text = "Max Health Reached";
+            }
+        }
+        else if (_playerScript.maxHealth < 5 && _sceneScript.playerScore < 2500) {
+            // tell player they don't have enough money
+
+        }
+        
+    }
+    */
 }
