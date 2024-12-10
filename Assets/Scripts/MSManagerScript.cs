@@ -67,34 +67,34 @@ public class MSManagerScript : MonoBehaviour
 
 
         //checks if player is nearby door to display text
-        GameObject door = findNearestDoor();
-        if (door != null && door.GetComponent<DoorScript>().doorColider.enabled)
-        {
-            doorText.text = "Press 'E' to open door [cost 1000]";
-        }
-        else
-        {
-            doorText.text = "";
-        }
+        //GameObject door = findNearestDoor();
+        //if (door != null && door.GetComponent<DoorScript>().doorColider.enabled)
+        //{
+        //    doorText.text = "Press 'E' to open door [cost 1000]";
+        //}
+        //else
+        //{
+        //    doorText.text = "";
+        //}
 
-        if (Input.GetKeyDown(openDoorKey))
-        {
-            Debug.Log("E key pressed");
-        }
+        //if (Input.GetKeyDown(openDoorKey))
+        //{
+        //    Debug.Log("E key pressed");
+        //}
 
 
         // Check if the 'E' key is pressed and if a door is nearby
-        if (Input.GetKeyDown(openDoorKey))
-        { 
-            GameObject nearestDoor = findNearestDoor();
-            //checks if door is nearby
-            if (nearestDoor != null)
-            {
-                Debug.Log("trying to open door");
-                doorChosen = nearestDoor;
-                openDoor();        
-            }
-        }
+        //if (Input.GetKeyDown(openDoorKey))
+        //{ 
+        //    GameObject nearestDoor = findNearestDoor();
+        //    //checks if door is nearby
+        //    if (nearestDoor != null)
+        //    {
+        //        Debug.Log("trying to open door");
+        //        doorChosen = nearestDoor;
+        //        openDoor();        
+        //    }
+        //}
         if (Input.GetKeyDown(openShopKey))
         {
             Debug.Log("B key pressed");
@@ -182,46 +182,46 @@ public class MSManagerScript : MonoBehaviour
     }
 
     //activates when the 'O' key is pressed near a door
-    void openDoor()
-    {
-        if (playerScore >= 1000)
-        {
-            doorChosen.GetComponent<DoorScript>().openDoor();
-            playerScore -= 1000;
-            playerScoreText.text = "Score " + playerScore;
-        }
-    }
+    //void openDoor()
+    //{
+    //    if (playerScore >= 1000)
+    //    {
+    //        doorChosen.GetComponent<DoorScript>().openDoor();
+    //        playerScore -= 1000;
+    //        playerScoreText.text = "Score " + playerScore;
+    //    }
+    //}
 
-    private GameObject findNearestDoor()
-    {
-        //puts every object with DoorScript attached to it in an array
-        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+    //private GameObject findNearestDoor()
+    //{
+    //    //puts every object with DoorScript attached to it in an array
+    //    GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
 
-        //placeholder variable to keep track of the nearest door
-        GameObject nearestDoor = null;
+    //    //placeholder variable to keep track of the nearest door
+    //    GameObject nearestDoor = null;
 
-        //placeholder variable to keep track of the 
-        float minDistance = Mathf.Infinity;
+    //    //placeholder variable to keep track of the 
+    //    float minDistance = Mathf.Infinity;
 
-        //loops through DoorScripts
-        foreach (GameObject door in doors)
-        {
-            DoorScript doorSr = door.GetComponent<DoorScript>();
-            //if door is active game object and the player is nearby to that door
-            if (doorSr.isActiveAndEnabled && doorSr.isPlayerNearby())
-            {
-                //calculate distance between player and door
-                float distance = Vector2.Distance(door.transform.position, playerPosition.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestDoor = door;
-                }
-            }
-        }
-        //returns the nearest door, or null if there is no door nearby
-        return nearestDoor;
-    }
+    //    //loops through DoorScripts
+    //    foreach (GameObject door in doors)
+    //    {
+    //        DoorScript doorSr = door.GetComponent<DoorScript>();
+    //        //if door is active game object and the player is nearby to that door
+    //        if (doorSr.isActiveAndEnabled && doorSr.isPlayerNearby())
+    //        {
+    //            //calculate distance between player and door
+    //            float distance = Vector2.Distance(door.transform.position, playerPosition.position);
+    //            if (distance < minDistance)
+    //            {
+    //                minDistance = distance;
+    //                nearestDoor = door;
+    //            }
+    //        }
+    //    }
+    //    //returns the nearest door, or null if there is no door nearby
+    //    return nearestDoor;
+    //}
 
     public void playerHurtSound() {
         hurtSound.Play();

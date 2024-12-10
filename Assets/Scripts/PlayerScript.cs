@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,7 +15,13 @@ public class PlayerScript : MonoBehaviour
     public Transform endOfGun;
     public Transform centerOfGun;
     Rigidbody2D rbody;
-    
+
+    [Header("RayCast Detection")]
+    public float detectionRange;
+    public int numberOfRays;
+    public LayerMask interactableLayer;
+    private GameObject detectedObject = null;
+
 
     private float timer;
 
@@ -60,7 +68,16 @@ public class PlayerScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+        //uses raycast every frame to see if something in the 'interactable' layer is in range
+        DetectNearbyObjects();
+
+        //checks to see if 'e' has been pressed
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            InteractWithObjects();
+        }
+
         Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, -10);
         Vector3 smoothedPosition = Vector3.Lerp(mainCam.transform.position, desiredPosition, cameraSmoothSpeed);
         mainCam.transform.position = smoothedPosition;
@@ -91,7 +108,6 @@ public class PlayerScript : MonoBehaviour
             Vector3 bulletDirection = (endOfGun.position - centerOfGun.position).normalized;
             GameObject bullet = Instantiate(Projectile, endOfGun.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection;
-
         }
     }
 
@@ -172,4 +188,56 @@ public class PlayerScript : MonoBehaviour
         
     }
     */
+
+
+    //method for raycasting
+    private void DetectNearbyObjects()
+    {
+        //variable to store detected object, starts at null as if nothing is there
+        detectedObject = null;
+
+        //creates area for raycast
+        float angleStep = 360f / numberOfRays;
+        for (int i = 0; i < numberOfRays; i++)
+        {
+            //raycasting mumbo jumbo
+            float angle = i * angleStep;
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, detectionRange, interactableLayer);
+            //if something is detected, detected object is set to that object
+            if (hit.collider != null)
+            {
+                detectedObject = hit.collider.gameObject;
+                Debug.Log("Detected Object: " + detectedObject.name);
+                break;
+            }
+        }
+    }
+
+
+    //method that runs when 'E' is pressed
+    private void InteractWithObjects()
+    {
+        //checks if something is in range of the raycast
+        if (detectedObject != null)
+        {
+            //if the object is a door, handle accordingly
+            if (detectedObject.CompareTag("Door"))
+            {
+                DoorScript door = detectedObject.GetComponent<DoorScript>();
+                if (door != null && (MSMScript.playerScore >= door.doorCost) && !door.isOpen)
+                {
+                    MSMScript.playerScore -= door.doorCost;
+                    door.Toggle();
+                }
+            }
+            //else if(detectedObject.CompareTag("Perk"))
+            //{
+            //    Perk perk
+            //}
+        }
+
+    }
+
 }
