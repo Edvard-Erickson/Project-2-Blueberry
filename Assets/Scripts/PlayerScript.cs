@@ -7,11 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     private Camera mainCam;
-    private Vector3 mousePos;
-
-    public GameObject Projectile;
-    public Transform endOfGun;
-    public Transform centerOfGun;
+ 
+    
     Rigidbody2D rbody;
     
 
@@ -31,15 +28,19 @@ public class PlayerScript : MonoBehaviour
     private Coroutine regenCoroutine;
 
     public MSManagerScript MSMScript;
-    public bool hasRifle;
-    public bool hasShotgun;
-    public bool hasAutoPistol;
-    public bool hasAutoShotgun;
-    public bool hasDMR;
-    public bool hasSniper;
-    public bool hasLMG;
-    public bool hasSMG;
+    
     public TMP_Text _playerHealth;
+
+    //gun storage and variables
+    public GunData[] loadout = new GunData[2];
+    public int currentSlotIndex = 0;
+    private GameObject activeWeapon;
+    public Transform weaponHolder;
+    public GunScript activeGunScript;
+
+    private Vector2 aimTarget;
+
+    private bool isFiring;
 
     // Start is called before the first frame update
     void Start()
@@ -48,51 +49,45 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
-        hasRifle = false;
-        hasShotgun = false;
-        hasAutoPistol = false;
-        hasAutoShotgun = false;
-        hasSniper = false;
-        hasLMG = false;
-        hasSMG = false;
-        hasDMR = false;
+
+        loadout[0].isPurchased = true;
+        EquipWeapon(currentSlotIndex);
+        loadout[1] = null;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //update camera to player
         Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, -10);
         Vector3 smoothedPosition = Vector3.Lerp(mainCam.transform.position, desiredPosition, cameraSmoothSpeed);
         mainCam.transform.position = smoothedPosition;
 
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        //rotating and aiming
+        rbody.rotation = GetAngle(aimTarget);
 
-        Vector3 rotation = mousePos - transform.position;
-
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
-
-        Vector3 direction = (mousePos - transform.position).normalized;
-
-        if (!canFire)
+        
+        //handle semi and automatic fire
+        if (isFiring && activeGunScript != null)
         {
-            timer += Time.deltaTime;
-            if(timer > timeBetweenFiring)
+            
+            if (activeGunScript.gunData.gunType == GunData.GunType.Automatic)
             {
-                canFire = true;
-                timer = 0;
+                Shoot();
+            }
+            else if (activeGunScript.gunData.gunType == GunData.GunType.SemiAutomatic)
+            {
+                // Semi-automatic fire (handled in OnFire directly)
+                if (isFiring)
+                {
+                    
+                    Shoot();
+                    isFiring = false; // Prevent holding down for semi-automatic
+                }
             }
         }
 
-        if (Input.GetMouseButton(0) && canFire)
-        {
-            canFire = false;
-            Vector3 bulletDirection = (endOfGun.position - centerOfGun.position).normalized;
-            GameObject bullet = Instantiate(Projectile, endOfGun.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection;
 
-        }
     }
 
     void OnMove(InputValue value)
@@ -100,6 +95,148 @@ public class PlayerScript : MonoBehaviour
         Vector2 moveVal = value.Get<Vector2>();
         rbody.velocity = moveVal * speed;
     }
+
+    void OnAim(InputValue value)
+    {
+        aimTarget = Camera.main.ScreenToWorldPoint(value.Get<Vector2>());
+
+
+    }
+
+    float GetAngle(Vector2 target)
+    {
+        Vector2 difference = target - rbody.position;
+        float angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        return angle;
+    }
+
+    void OnFire(InputValue value)
+    {
+        isFiring = value.isPressed;
+    }
+
+
+    void OnReload(InputValue value)
+    {
+        if (activeWeapon != null)
+        {
+            GunScript gunScript = activeWeapon.GetComponent<GunScript>();
+            if (gunScript != null)
+            {
+                gunScript.Reload(); // Call the fire method of the current gun
+            }
+        }
+    }
+
+    void OnInteract(InputValue value)
+    {
+
+    }
+
+    void OnSwapWeapon()
+    {
+        
+        if (currentSlotIndex == 0 && loadout[1] != null)
+        {
+            currentSlotIndex = 1;
+            EquipWeapon(1);
+            Debug.Log("swap to weapon 2");
+        }
+        else if (currentSlotIndex == 1)
+        {
+            currentSlotIndex = 0;
+            EquipWeapon(0);
+            Debug.Log("swap to weapon 1");
+        }
+    }
+
+    public void PurchasedWeapon(GunData newGun)
+    {
+        // Find the current slot to replace
+        if (loadout[1] == null)
+        {
+            loadout[1] = newGun;
+            newGun.isPurchased = true;
+            OnSwapWeapon();
+            Debug.Log("Equipped gun to slot 2");
+        }
+        else
+        {
+            // Remove the gun currently in the slot
+            RemoveGunFromLoadout(currentSlotIndex);
+
+            // Add the new gun to the loadout
+            loadout[currentSlotIndex] = newGun;
+            newGun.isPurchased = true;
+            EquipWeapon(currentSlotIndex);
+            Debug.Log("Replaced gun in current slot");
+        }
+    }
+
+
+    public void RemoveGunFromLoadout(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < loadout.Length && loadout[slotIndex] != null)
+        {
+            // Get the gun being removed
+            GunData removedGun = loadout[slotIndex];
+
+            // Reset the gun's availability (optional: use a dictionary or flag to track availability in the store)
+            removedGun.isPurchased = false;
+
+            // Remove the gun from the loadout
+            loadout[slotIndex] = null;
+            Debug.Log($"Gun {removedGun.gunName} is now purchasable again.");
+        }
+    }
+
+    public void EquipWeapon(int slotIndex)
+    {
+        // Validate the slot index and ensure it's not empty
+        if (slotIndex < 0 || slotIndex >= loadout.Length || loadout[slotIndex] == null)
+        {
+            Debug.LogWarning("Invalid weapon slot or empty slot!");
+            return;
+        }
+
+        // Destroy the currently equipped weapon
+        if (activeWeapon != null)
+        {
+            Destroy(activeWeapon);
+        }
+
+        // Equip the new weapon
+        GunData selectedGun = loadout[slotIndex];
+        activeWeapon = Instantiate(selectedGun.gunPrefab, weaponHolder);
+
+        // Align weapon position and rotation with the holder
+        activeWeapon.transform.localPosition = Vector3.zero;
+        activeWeapon.transform.localRotation = Quaternion.identity;
+
+        // Assign the GunData to the GunScript
+        activeGunScript = activeWeapon.GetComponent<GunScript>();
+        if (activeGunScript != null)
+        {
+            activeGunScript.gunData = selectedGun;
+        }
+
+        // Update the current slot index
+        currentSlotIndex = slotIndex;
+
+        Debug.Log($"Equipped weapon: {selectedGun.gunName}");
+    }
+
+    public void Shoot()
+    {
+        if (activeWeapon != null)
+        {
+            if (activeGunScript != null)
+            {
+                activeGunScript.Fire(); // Call the fire method of the current gun
+            }
+        }
+    }
+
 
     public void TakeDamage()
     {

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9096cb8616b46d045bc64695609dd575, type: 3}
+  m_Name: SMG
+  m_EditorClassIdentifier: 
+  gunName: SMG
+  damage: 20
+  maxAmmo: 30
+  fireRate: 0.08
+  gunType: 1
+  gunPrefab: {fileID: 8637514178159757518, guid: 5e7035709a0cdd2498484195e415c728, type: 3}
+  isShotgun: 0
+  pelletCount: 0
+  spreadAngle: 0
+  isPurchased: 1
+  price: 1000

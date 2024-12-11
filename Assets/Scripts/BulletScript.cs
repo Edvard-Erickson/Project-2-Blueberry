@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     public int bulletSpeed;
     public LayerMask collisionLayers;
     public int damage;
+    private Vector3 direction;
     public ParticleSystem ps;
 
     public MSManagerScript MSMScript;
@@ -17,12 +18,22 @@ public class BulletScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         rbody.velocity = rbody.velocity * bulletSpeed;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
-
+        rbody.velocity = direction * bulletSpeed;
     }
+
+    public void Initialize(Vector3 dir, int dmg)
+    {
+        direction = dir.normalized;
+        damage = dmg;
+        
+    }
+
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, rbody.velocity.normalized, bulletSpeed * Time.deltaTime, collisionLayers);
 
         if (hit.collider != null && !hit.collider.CompareTag("Player") && !hit.collider.CompareTag("Bullet"))

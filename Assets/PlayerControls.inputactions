@@ -13,6 +13,60 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "358caf9f-18c5-479e-9703-a50fd0ed83ee",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "2a07bbfe-004c-431f-90e7-e614cf3cde79",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "c5162cec-666e-4087-85f4-ceba99a2e9e4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "605d3708-6460-43be-a736-c066df2c89da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwapWeapon",
+                    "type": "Button",
+                    "id": "de4ea1f4-d5f3-43a2-befb-c368b3a83aa3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Stats",
+                    "type": "Button",
+                    "id": "8b7a9844-5a21-4c7c-879b-10df6e53de2a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -72,59 +126,70 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "ArrowKeys",
-                    "id": "2a46f929-0e67-4098-a503-e2a8a5c4c06e",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "ebe56c2d-46bc-4bd9-bc03-c8d337c3030d",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
+                    "action": "Aim",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "0fad5303-e47c-4401-b203-65fdb4fec86f",
-                    "path": "<Keyboard>/upArrow",
+                    "name": "",
+                    "id": "a992c8ea-20fc-4071-a64c-8d3ebd414ef3",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "All Control Scheme",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "down",
-                    "id": "233ebe25-6225-4e52-a695-45e1f2657bec",
-                    "path": "<Keyboard>/downArrow",
+                    "name": "",
+                    "id": "b364ae7e-4d71-4241-9ca3-f18d78e9cff8",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "All Control Scheme",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "left",
-                    "id": "7c33bbb8-eca6-45b2-8989-d3f30532a3b5",
-                    "path": "<Keyboard>/leftArrow",
+                    "name": "",
+                    "id": "3d448a9e-5c4a-4bd3-a0dd-ddffaa471596",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "All Control Scheme",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "right",
-                    "id": "e66001e8-c54d-4ed5-9f9a-f579dfac15dd",
-                    "path": "<Keyboard>/rightArrow",
+                    "name": "",
+                    "id": "23f66cce-9257-455a-be29-f625a42e5c96",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "All Control Scheme",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "SwapWeapon",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "460e2054-aa26-4ba0-b6fd-8fd382bfee2a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stats",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

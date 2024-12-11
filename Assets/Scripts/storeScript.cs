@@ -23,10 +23,35 @@ public class storeScript : MonoBehaviour
     public TMP_Text LMG;    
     public GameObject _shopPanel;
 
+    public GunData assaultRifle;
+    public GunData smg;
+    public GunData dmr;
+    public GunData sniperRifle;
+    public GunData pistol;
+    public GunData autoPistol;
+    public GunData shotgun;
+    public GunData lmg;
+    public GunData autoShotgun;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        if (_playerScript == null)
+        {
+            _playerScript = FindObjectOfType<PlayerScript>();
+            Debug.Log($"PlayerScript automatically assigned: {_playerScript}");
+        }
 
+        assaultRifle.isPurchased = false;
+        smg.isPurchased = false;
+        dmr.isPurchased = false;
+        sniperRifle.isPurchased = false;
+        pistol.isPurchased = false;
+        autoPistol.isPurchased = false;
+        shotgun.isPurchased = false;
+        lmg.isPurchased = false;
+        autoShotgun.isPurchased = false;
     }
 
     // Update is called once per frame
@@ -36,60 +61,113 @@ public class storeScript : MonoBehaviour
     }
 
     public void boughtRifle() {
-        if (!_playerScript.hasRifle && _sceneScript.playerScore >= 1500) {
-            _playerScript.hasRifle = true;
-            _sceneScript.playerScore -= 1500;
+        if (!assaultRifle.isPurchased && _sceneScript.playerScore >= assaultRifle.price)
+        {
+            assaultRifle.isPurchased = true;
+
+            _playerScript.PurchasedWeapon(assaultRifle);
+
+            _sceneScript.playerScore -= assaultRifle.price;
             rifleText.text = "Purchased";
+            UpdateShop();
         }
     }
 
     public void boughtShotgun() {
-        if (!_playerScript.hasShotgun && _sceneScript.playerScore >= 1500) {
-            _playerScript.hasShotgun = true;
-            _sceneScript.playerScore -= 1500;
+        if (!shotgun.isPurchased && _sceneScript.playerScore >= shotgun.price) {
+            shotgun.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(shotgun);
+
+            _sceneScript.playerScore -= shotgun.price;
             shotgunText.text = "Purchased";
+            UpdateShop();
         }
     }
     public void boughtAutoPistol() {
-        if (!_playerScript.hasAutoPistol && _sceneScript.playerScore >= 750) {
-            _playerScript.hasAutoPistol = true;
-            _sceneScript.playerScore -= 750;
+        if (!autoPistol.isPurchased && _sceneScript.playerScore >= autoPistol.price) {
+            autoPistol.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(autoPistol);
+
+            _sceneScript.playerScore -= autoPistol.price;
             AutoPistol.text = "Purchased";
+            UpdateShop();
         }
     }
     public void boughtAutoShotgun() {
-        if (!_playerScript.hasShotgun && _sceneScript.playerScore >= 2500) {
-            _playerScript.hasAutoShotgun = true;
-            _sceneScript.playerScore -= 2500;
+        if (!autoShotgun.isPurchased && _sceneScript.playerScore >= autoShotgun.price) {
+            autoShotgun.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(autoShotgun);
+
+            _sceneScript.playerScore -= autoShotgun.price;
             AutoShotgun.text = "Purchased";
+            UpdateShop();
         }
     }
     public void hasSniper() {
-        if (!_playerScript.hasSniper && _sceneScript.playerScore >= 2000) {
-            _playerScript.hasSniper = true;
-            _sceneScript.playerScore -= 2000;
+        if (!sniperRifle.isPurchased && _sceneScript.playerScore >= sniperRifle.price) {
+            sniperRifle.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(sniperRifle);
+
+            _sceneScript.playerScore -= sniperRifle.price;
             Sniper.text = "Purchased";
+            UpdateShop();
         }
     }
     public void boughtLMG() {
-        if (!_playerScript.hasLMG && _sceneScript.playerScore >= 2500) {
-            _playerScript.hasLMG = true;
-            _sceneScript.playerScore -= 2500;
+        if (!lmg.isPurchased && _sceneScript.playerScore >= lmg.price) {
+            lmg.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(lmg);
+
+            _sceneScript.playerScore -= lmg.price;
             LMG.text = "Purchased";
+            UpdateShop();
         }
     }
     public void boughtDMR() {
-        if (!_playerScript.hasDMR && _sceneScript.playerScore >= 1500) {
-            _playerScript.hasDMR = true;
-            _sceneScript.playerScore -= 1500;
+        if (!dmr.isPurchased && _sceneScript.playerScore >= dmr.price) {
+            smg.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(dmr);
+
+            _sceneScript.playerScore -= dmr.price;
             DMR.text = "Purchased";
+            UpdateShop();
         }
     }
     public void boughtSMG() {
-        if (!_playerScript.hasSMG && _sceneScript.playerScore >= 1000) {
-            _playerScript.hasSMG = true;
-            _sceneScript.playerScore -= 1000;
+        if (!smg.isPurchased && _sceneScript.playerScore >= smg.price) {
+            smg.isPurchased = true;
+
+            //set the player's weapon with the gunData
+            _playerScript.PurchasedWeapon(smg);
+
+            _sceneScript.playerScore -= smg.price;
             SMG.text = "Purchased";
+            UpdateShop();
         }
+    }
+
+
+    public void UpdateShop()
+    {
+        if (!smg.isPurchased) { SMG.text = smg.price.ToString(); }
+        if (!assaultRifle.isPurchased) { rifleText.text = assaultRifle.price.ToString(); }
+        if (!shotgun.isPurchased) { shotgunText.text = shotgun.price.ToString(); }
+        if (!autoPistol.isPurchased) { AutoPistol.text = autoPistol.price.ToString(); }
+        if (!autoShotgun.isPurchased) { AutoShotgun.text = autoShotgun.price.ToString(); }
+        if (!sniperRifle.isPurchased) { Sniper.text = sniperRifle.price.ToString(); }
+        if (!dmr.isPurchased) { DMR.text = dmr.price.ToString(); }
+        if (!lmg.isPurchased) { LMG.text = lmg.price.ToString(); }
     }
 }
