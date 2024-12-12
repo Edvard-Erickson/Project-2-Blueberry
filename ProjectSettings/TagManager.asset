@@ -8,6 +8,7 @@ TagManager:
   - Zombie
   - SpawnPoint
   - Door
+  - ValidArea
   layers:
   - Default
   - TransparentFX
