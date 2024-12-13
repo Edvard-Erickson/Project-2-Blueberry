@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: AA12
   damage: 15
-  maxAmmo: 10
+  maxMag: 0
   fireRate: 0.3
   gunType: 1
   gunPrefab: {fileID: 3181003661459378588, guid: 8ca859958401585458249d3c8ff86f82, type: 3}
+  reloadTime: 0
+  reserveBulletSize: 0
   isShotgun: 1
   pelletCount: 7
   spreadAngle: 30

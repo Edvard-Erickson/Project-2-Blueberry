@@ -148,7 +148,7 @@ public class PlayerScript : MonoBehaviour
             GunScript gunScript = activeWeapon.GetComponent<GunScript>();
             if (gunScript != null)
             {
-                gunScript.Reload(); // Call the fire method of the current gun
+                StartCoroutine(gunScript.Reload()); // Call the fire method of the current gun
             }
         }
     }
