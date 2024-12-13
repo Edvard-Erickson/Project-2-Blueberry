@@ -11,11 +11,15 @@ public class GunScript : MonoBehaviour
     public Transform shootPoint;
     public GameObject bulletPrefab;
     MSManagerScript _manager;
+    public int ammoRemaining;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = gunData.maxAmmo;
+        currentAmmo = gunData.magSize;
+        _manager = FindAnyObjectByType<MSManagerScript>();
+        ammoRemaining = gunData.maxAmmo;
+        _manager.UpdateAmmoDisplay();
     }
 
     // Update is called once per frame
@@ -34,6 +38,7 @@ public class GunScript : MonoBehaviour
         {
             FireSingleBullet();
         }
+        _manager.UpdateAmmoDisplay();
     }
 
     public void FireSingleBullet()
@@ -82,13 +87,24 @@ public class GunScript : MonoBehaviour
             lastFiredTime = Time.time;
         }
     }
-
     public void Reload()
     {
-        if (currentAmmo < gunData.maxAmmo)
-        {
-            currentAmmo = gunData.maxAmmo;
-            _manager.reloadSound.Play();
+        StartCoroutine(ReloadCoroutine());
+        _manager.UpdateAmmoDisplay();
+    }
+
+    IEnumerator ReloadCoroutine()
+    {
+        yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
+        if (ammoRemaining > 0) {
+            if (ammoRemaining >= gunData.magSize) {
+                currentAmmo = gunData.magSize;
+                ammoRemaining -= gunData.magSize;
+            }
+            else {
+                currentAmmo = ammoRemaining;
+                ammoRemaining = 0;
+            }
         }
     }
 }

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: Shotty
   damage: 20
-  maxAmmo: 5
+  magSize: 5
+  maxAmmo: 40
   fireRate: 0.7
   gunType: 0
   gunPrefab: {fileID: 3585153585483050763, guid: 89e8c00a23aa35645b2e9e6260a0cd79, type: 3}
   isShotgun: 1
   pelletCount: 15
   spreadAngle: 90
+  reloadTime: 1
   isPurchased: 1
   price: 1500

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: LMG
   damage: 20
-  maxAmmo: 100
+  magSize: 100
+  maxAmmo: 800
   fireRate: 0.1
   gunType: 1
   gunPrefab: {fileID: 7799763259098053021, guid: 9b8b3c9f02294854c9dc8759c05ce506, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 2
   isPurchased: 0
   price: 2500

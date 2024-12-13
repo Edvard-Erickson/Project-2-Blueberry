@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: AWP
   damage: 200
-  maxAmmo: 5
+  magSize: 5
+  maxAmmo: 40
   fireRate: 1
   gunType: 0
   gunPrefab: {fileID: 8768676631003972622, guid: 726c55c642880fa45bc8f1206eebbf37, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 1
   isPurchased: 0
   price: 2000

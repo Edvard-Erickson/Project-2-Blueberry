@@ -22,8 +22,6 @@ public class MSManagerScript : MonoBehaviour
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
     public AudioSource hurtSound;
-    public AudioSource reloadSound;
-    public AudioClip reloading;
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
@@ -52,6 +50,9 @@ public class MSManagerScript : MonoBehaviour
         currentRound = 0;
         StartRound();
         _shopOpen = false;
+        ammoText = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
+        gunScript = GameObject.FindObjectOfType<GunScript>();
+        UpdateAmmoDisplay();
     }
 
     // Update is called once per frame
@@ -112,8 +113,6 @@ public class MSManagerScript : MonoBehaviour
                 _shopOpen = false;
             }
         }
-
-        UpdateAmmoDisplay();
     }
 
     void StartRound()
@@ -234,9 +233,6 @@ public class MSManagerScript : MonoBehaviour
         hurtSound.Play();
     }
 
-    public void playerReload() {
-        reloadSound.Play();
-    }
     public void GameOver()
     {
         // Calculate elapsed time
@@ -268,12 +264,9 @@ public class MSManagerScript : MonoBehaviour
     }
 
     public void UpdateAmmoDisplay()
-{
-    if (gunScript != null && ammoText != null)
     {
-        int currentAmmo = gunScript.currentAmmo;
-        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxAmmo}";
+    Debug.Log("UpdateAmmoDisplay called");
+    ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
     }
-}
 }
 
