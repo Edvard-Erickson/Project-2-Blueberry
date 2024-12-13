@@ -9,6 +9,7 @@ TagManager:
   - SpawnPoint
   - Door
   - ValidArea
+  - Perk
   layers:
   - Default
   - TransparentFX

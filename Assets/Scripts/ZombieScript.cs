@@ -11,7 +11,7 @@ public class ZombieScript : MonoBehaviour
 
     public int health;
     public int damage;
-    public int speed;
+    public float speed;
 
     public LayerMask collisionLayerMask;
     public float rotationSpeed;

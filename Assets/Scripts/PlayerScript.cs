@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     private Camera mainCam;
- 
+
+    public TextMeshProUGUI interactionText;
     
     Rigidbody2D rbody;
 
@@ -18,8 +19,6 @@ public class PlayerScript : MonoBehaviour
     public int numberOfRays;
     public LayerMask interactableLayer;
     private GameObject detectedObject = null;
-
-
     private float timer;
 
     public bool canFire;
@@ -50,6 +49,14 @@ public class PlayerScript : MonoBehaviour
 
     private bool isFiring;
 
+
+    //booleans to see if player already has the perk
+    public bool hasJuggernog;
+    public bool hasDoubleTap;
+    public bool hasSpeedCola;
+    public bool hasStaminup;
+    public AudioSource reload;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +75,8 @@ public class PlayerScript : MonoBehaviour
     { 
         //uses raycast every frame to see if something in the 'interactable' layer is in range
         DetectNearbyObjects();
+
+        HandleInteractionText();
 
         //checks to see if 'e' has been pressed
         if (Input.GetKeyDown(KeyCode.E))
@@ -142,6 +151,9 @@ public class PlayerScript : MonoBehaviour
                 gunScript.Reload(); // Call the fire method of the current gun
             }
         }
+    }
+    public void reloadSound() {
+        reload.Play();
     }
 
     void OnInteract(InputValue value)
@@ -332,6 +344,10 @@ public class PlayerScript : MonoBehaviour
     {
         //variable to store detected object, starts at null as if nothing is there
         detectedObject = null;
+        if (detectedObject == null)
+        {
+            interactionText.text = "";
+        }
 
         //creates area for raycast
         float angleStep = 360f / numberOfRays;
@@ -349,6 +365,42 @@ public class PlayerScript : MonoBehaviour
                 Debug.Log("Detected Object: " + detectedObject.name);
                 break;
             }
+        }
+    }
+    private void HandleInteractionText()
+    {
+        if (detectedObject != null)
+        {
+            if (detectedObject.CompareTag("Door"))
+            {
+                DoorScript door = detectedObject.GetComponent<DoorScript>();
+                if (door != null)
+                {
+                    if (!door.isOpen)
+                    {
+                        interactionText.enabled = true;
+                        interactionText.text = $"Press 'E' to open Door [Cost: {door.doorCost}]";
+                    }
+                }
+            }
+            else if (detectedObject.CompareTag("Perk"))
+            {
+                perkScript perk = detectedObject.GetComponent<perkScript>();
+                if (perk != null)
+                {
+                    if (!perk.IsPerkAlreadyOwned(this))
+                    {
+                        interactionText.enabled = true;
+                        interactionText.text = $"Press 'E' to acquire {perk.getPerkName()} [Cost: {perk.GetPerkCost()}]";
+                    }
+
+
+                }
+            }
+        }
+        else
+        {
+            interactionText.enabled = false;
         }
     }
 
@@ -369,10 +421,19 @@ public class PlayerScript : MonoBehaviour
                     door.Toggle();
                 }
             }
-            //else if(detectedObject.CompareTag("Perk"))
-            //{
-            //    Perk perk
-            //}
+            else if (detectedObject.CompareTag("Perk"))
+            {
+                perkScript perk = detectedObject.GetComponent<perkScript>();
+                if (perk != null && MSMScript.playerScore >= perk.GetPerkCost())
+                {
+                    if (!perk.IsPerkAlreadyOwned(this))
+                    {
+                        MSMScript.playerScore -= perk.GetPerkCost();
+                        perk.UsePerk();
+                        perk.SetPerkOwned(this);
+                    }
+                }
+            }
         }
 
     }
