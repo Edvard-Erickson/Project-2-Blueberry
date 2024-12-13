@@ -6,10 +6,11 @@ using UnityEngine;
 public class GunScript : MonoBehaviour
 {
     public GunData gunData;
-    private int currentAmmo;
+    public int currentAmmo;
     private float lastFiredTime;
     public Transform shootPoint;
     public GameObject bulletPrefab;
+    MSManagerScript _manager;
 
     // Start is called before the first frame update
     void Start()
@@ -82,9 +83,12 @@ public class GunScript : MonoBehaviour
         }
     }
 
-
     public void Reload()
     {
-        currentAmmo = gunData.maxAmmo;
+        if (currentAmmo < gunData.maxAmmo)
+        {
+            currentAmmo = gunData.maxAmmo;
+            _manager.reloadSound.Play();
+        }
     }
 }

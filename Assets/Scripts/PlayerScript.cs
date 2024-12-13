@@ -19,8 +19,6 @@ public class PlayerScript : MonoBehaviour
     public int numberOfRays;
     public LayerMask interactableLayer;
     private GameObject detectedObject = null;
-
-
     private float timer;
 
     public bool canFire;
@@ -57,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     public bool hasDoubleTap;
     public bool hasSpeedCola;
     public bool hasStaminup;
+    public AudioSource reload;
 
     // Start is called before the first frame update
     void Start()
@@ -152,6 +151,9 @@ public class PlayerScript : MonoBehaviour
                 gunScript.Reload(); // Call the fire method of the current gun
             }
         }
+    }
+    public void reloadSound() {
+        reload.Play();
     }
 
     void OnInteract(InputValue value)

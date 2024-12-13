@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +22,8 @@ public class MSManagerScript : MonoBehaviour
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
     public AudioSource hurtSound;
-
+    public AudioSource reloadSound;
+    public AudioClip reloading;
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
@@ -36,6 +38,9 @@ public class MSManagerScript : MonoBehaviour
     storeScript _storeScript;
     public GameObject _shop;
     private bool _shopOpen;
+    GunScript gunScript;
+    GunData gunData;
+    public TMP_Text ammoText;
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +112,8 @@ public class MSManagerScript : MonoBehaviour
                 _shopOpen = false;
             }
         }
+
+        UpdateAmmoDisplay();
     }
 
     void StartRound()
@@ -132,7 +139,7 @@ public class MSManagerScript : MonoBehaviour
         if (zombiesLeft > 0)
         {
             // Track how much time has passed to manage the spawn rate
-            float spawnInterval = spawnDuration / zombiesPerRound;
+            float spawnInterval = spawnDuration / zombiesPerRound * 1.5f; // Increase the delay by 50%
 
             // Start a coroutine to spawn zombies gradually over time
             StartCoroutine(SpawnZombiesOverTime(spawnInterval));
@@ -227,6 +234,9 @@ public class MSManagerScript : MonoBehaviour
         hurtSound.Play();
     }
 
+    public void playerReload() {
+        reloadSound.Play();
+    }
     public void GameOver()
     {
         // Calculate elapsed time
@@ -256,5 +266,14 @@ public class MSManagerScript : MonoBehaviour
         
         SceneManager.LoadScene("endGameScene"); 
     }
+
+    public void UpdateAmmoDisplay()
+{
+    if (gunScript != null && ammoText != null)
+    {
+        int currentAmmo = gunScript.currentAmmo;
+        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxAmmo}";
+    }
+}
 }
 
