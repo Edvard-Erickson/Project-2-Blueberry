@@ -16,7 +16,7 @@ public class MSManagerScript : MonoBehaviour
     private bool roundInProgress;
     private int zombiesAlive;
 
-    private int currentRound;
+    public int currentRound;
 
     public int playerScore;
     public TextMeshProUGUI playerScoreText;
@@ -41,6 +41,9 @@ public class MSManagerScript : MonoBehaviour
     public TMP_Text ammoText;
     public AudioSource reloadSound;
     public bool isDoublePoints;
+
+    /*public BulletPool bulletPool;
+    public GameObject bulletPrefab;*/
 
     // Start is called before the first frame update
     void Start()
@@ -138,12 +141,16 @@ public class MSManagerScript : MonoBehaviour
         isDoublePoints = false;
     }
 
+    void FixedUpdate() {
+        gunScript = GameObject.FindObjectOfType<GunScript>();
+        UpdateAmmoDisplay();
+    }
     void spawnZombies()
     {
         if (zombiesLeft > 0)
         {
-            // Track how much time has passed to manage the spawn rate
-            float spawnInterval = spawnDuration / zombiesPerRound * 1.5f; // Increase the delay by 50%
+            // Calculate the spawn interval based on the current round
+            float spawnInterval = Mathf.Clamp(3f - currentRound * 0.1f, 0.1f, 3f); // Decreases the interval over time, but limits the minimum to 0.1 seconds
 
             // Start a coroutine to spawn zombies gradually over time
             StartCoroutine(SpawnZombiesOverTime(spawnInterval));
@@ -155,6 +162,9 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
+            // Wait for the specified spawn interval before spawning the next one
+            yield return new WaitForSeconds(spawnInterval);
+
             GameObject spawnPoint = null;
             while (spawnPoint == null)
             {
@@ -166,9 +176,6 @@ public class MSManagerScript : MonoBehaviour
             }
             Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
-
-            // Wait for the specified spawn interval before spawning the next one
-            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
@@ -287,9 +294,8 @@ public class MSManagerScript : MonoBehaviour
 
     public void UpdateAmmoDisplay()
     {
-        int currentAmmo = gunScript.currentAmmo;
-        
-    ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
+        Debug.Log("UpdateAmmoDisplay called");
+        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
     }
 }
 

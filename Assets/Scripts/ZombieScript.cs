@@ -30,6 +30,14 @@ public class ZombieScript : MonoBehaviour
         target = player.transform;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
         GetComponent<AIDestinationSetter>().target = target;
+
+        health = 50 + (MSMScript.currentRound - 1) * 20;
+        float speedMax = (float)(1 + (MSMScript.currentRound - 1) * 0.15);
+        if (speedMax > 3.5)
+        {
+            speedMax = 3.5f;
+        }
+        GetComponent<AIPath>().maxSpeed = speedMax;
     }
 
     // Update is called once per frame

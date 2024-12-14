@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
+    public BulletPool bulletPool;
     public GunData gunData;
     public int currentAmmo;
     private float lastFiredTime;
@@ -108,6 +109,22 @@ public class GunScript : MonoBehaviour
     public void Reload()
     {
         StartCoroutine(ReloadCoroutine());
+    }
+
+    IEnumerator ReloadCoroutine() {
+        yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
+        if (ammoRemaining > 0) {
+            if (ammoRemaining >= gunData.magSize) {
+                currentAmmo = gunData.magSize;
+                ammoRemaining -= gunData.magSize;
+                _manager.UpdateAmmoDisplay();
+            }
+            else {
+                currentAmmo = ammoRemaining;
+                ammoRemaining = 0;
+                _manager.UpdateAmmoDisplay();
+            }
+        }
     }
 
     IEnumerator ReloadCoroutine()
