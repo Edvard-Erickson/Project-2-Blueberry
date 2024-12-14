@@ -33142,6 +33142,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5865839545720892828, guid: 223132771290d274ea1a6d3e615f4175, type: 3}
   m_PrefabInstance: {fileID: 1069339065}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1069572727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6128987538900675349, guid: f3de38ba1f689c6479baa4df67be8b48, type: 3}
+  m_PrefabInstance: {fileID: 1804651624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1071244509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37735,6 +37740,7 @@ MonoBehaviour:
   doorChosen: {fileID: 0}
   _shop: {fileID: 354701602}
   ammoText: {fileID: 271854956}
+  bulletPrefab: {fileID: 4846559256495998398, guid: 013fcc627ccef934e885e55d5b3fcb50, type: 3}
   reloadSound: {fileID: 0}
 --- !u!82 &1256592838
 AudioSource:
@@ -46578,6 +46584,7 @@ Transform:
   - {fileID: 1530069054}
   - {fileID: 1680163090}
   - {fileID: 520637620}
+  - {fileID: 1069572727}
   - {fileID: 1731403490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56742,7 +56749,7 @@ Transform:
   m_GameObject: {fileID: 1793091979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.42, y: -2.45, z: 0}
+  m_LocalPosition: {x: 7.22, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

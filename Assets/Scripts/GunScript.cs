@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
+    public BulletPool bulletPool;
     public GunData gunData;
     public int currentAmmo;
     private float lastFiredTime;
@@ -50,6 +51,7 @@ public class GunScript : MonoBehaviour
     {
         if(Time.time - lastFiredTime >= gunData.fireRate && currentAmmo > 0)
         {
+            
             Vector3 bulletDirection = (shootPoint.position - transform.position).normalized;
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
             BulletScript bulletScript = bullet.GetComponent<BulletScript>();
