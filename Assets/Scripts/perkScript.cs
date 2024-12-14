@@ -18,6 +18,12 @@ public class perkScript : MonoBehaviour
     // Reference to the player
     public GameObject player;
 
+    GunData gunData;
+
+    void Start() {
+        gunData = GetComponent<GunData>();
+    }
+
     // Method to apply the perk
     public void UsePerk()
     {
@@ -136,17 +142,16 @@ public class perkScript : MonoBehaviour
 
     private void ApplyDoubleTap(PlayerScript playerScript)
     {
-
+        gunData.activateDoubleTap();
     }
 
     private void ApplySpeedCola(PlayerScript playerScript)
     {
-
-
+        
     }
 
     private void ApplyStaminup(PlayerScript playerScript)
     {
-        playerScript.speed = playerScript.speed * 1.1f;
+        playerScript.speed = playerScript.speed * 1.5f;
     }
 }

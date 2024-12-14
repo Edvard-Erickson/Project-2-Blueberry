@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: AutoPistol
   damage: 10
-  maxAmmo: 21
+  magSize: 10
+  maxAmmo: 168
   fireRate: 0.05
   gunType: 1
   gunPrefab: {fileID: 4984474332318586693, guid: 2b3a043b76d6e044caa714032a01c5b0, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 0.75
   isPurchased: 1
   price: 750

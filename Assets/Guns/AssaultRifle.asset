@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: AssaultRifle
   damage: 50
-  maxAmmo: 30
+  magSize: 30
+  maxAmmo: 240
   fireRate: 0.15
   gunType: 1
   gunPrefab: {fileID: 4477066284648921262, guid: 19e8ef7b24b100243a72b04eb49285f8, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 1
   isPurchased: 1
   price: 1500

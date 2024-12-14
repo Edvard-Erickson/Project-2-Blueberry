@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: SMG
   damage: 20
-  maxAmmo: 30
+  magSize: 30
+  maxAmmo: 240
   fireRate: 0.08
   gunType: 1
   gunPrefab: {fileID: 8637514178159757518, guid: 5e7035709a0cdd2498484195e415c728, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 1
   isPurchased: 1
   price: 1000

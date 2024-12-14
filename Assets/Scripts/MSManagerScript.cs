@@ -22,8 +22,6 @@ public class MSManagerScript : MonoBehaviour
     public TextMeshProUGUI playerScoreText;
     public TextMeshProUGUI roundNumber;
     public AudioSource hurtSound;
-    public AudioSource reloadSound;
-    public AudioClip reloading;
     public TextMeshProUGUI healthIndicator;
     public TextMeshProUGUI doorText;
 
@@ -41,6 +39,7 @@ public class MSManagerScript : MonoBehaviour
     GunScript gunScript;
     GunData gunData;
     public TMP_Text ammoText;
+    public AudioSource reloadSound;
 
     /*public BulletPool bulletPool;
     public GameObject bulletPrefab;*/
@@ -55,7 +54,11 @@ public class MSManagerScript : MonoBehaviour
         currentRound = 50;
         StartRound();
         _shopOpen = false;
-        /*bulletPool = new BulletPool(bulletPrefab, true, 20);*/
+        ammoText = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
+        gunScript = GameObject.FindObjectOfType<GunScript>();
+        UpdateAmmoDisplay();
+        reloadSound = GameObject.Find("PistolReload").GetComponent<AudioSource>();
+        hurtSound = GameObject.Find("PlayerHurt").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -116,8 +119,6 @@ public class MSManagerScript : MonoBehaviour
                 _shopOpen = false;
             }
         }
-
-        UpdateAmmoDisplay();
     }
 
     void StartRound()
@@ -237,8 +238,8 @@ public class MSManagerScript : MonoBehaviour
     public void playerHurtSound() {
         hurtSound.Play();
     }
-
-    public void playerReload() {
+    
+    public void reloadGunSound() {
         reloadSound.Play();
     }
     public void GameOver()
@@ -272,12 +273,11 @@ public class MSManagerScript : MonoBehaviour
     }
 
     public void UpdateAmmoDisplay()
-{
-    if (gunScript != null && ammoText != null)
     {
         int currentAmmo = gunScript.currentAmmo;
-        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxAmmo}";
+        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxMag}";
+    Debug.Log("UpdateAmmoDisplay called");
+    ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
     }
-}
 }
 

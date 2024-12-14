@@ -9,9 +9,7 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
     private Camera mainCam;
-
     public TextMeshProUGUI interactionText;
-    
     Rigidbody2D rbody;
 
     [Header("RayCast Detection")]
@@ -48,15 +46,13 @@ public class PlayerScript : MonoBehaviour
     private Vector2 aimTarget;
 
     private bool isFiring;
-
-
     //booleans to see if player already has the perk
     public bool hasJuggernog;
     public bool hasDoubleTap;
     public bool hasSpeedCola;
     public bool hasStaminup;
     public AudioSource reload;
-
+    GunScript gunScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +60,7 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
+        gunScript=GameObject.FindObjectOfType<GunScript>();
 
         loadout[0].isPurchased = true;
         EquipWeapon(currentSlotIndex);
@@ -75,7 +72,6 @@ public class PlayerScript : MonoBehaviour
     { 
         //uses raycast every frame to see if something in the 'interactable' layer is in range
         DetectNearbyObjects();
-
         HandleInteractionText();
 
         //checks to see if 'e' has been pressed
@@ -383,6 +379,19 @@ public class PlayerScript : MonoBehaviour
                     }
                 }
             }
+            if (detectedObject.CompareTag("ammoCrate"))
+            {
+                ammoCrateScript crate = detectedObject.GetComponent<ammoCrateScript>();
+                interactionText.enabled = true;
+                if (gunScript.ammoRemaining == 0) {
+                    interactionText.text = $"You're out of ammo! Press 'E' to get a free mag!";
+                    gunScript.freeMag();
+                }
+                else {
+                    interactionText.text = $"Press 'E' to fill your ammo to the max! [Cost: 500]";
+                    gunScript.fullAmmo();
+                }
+            }
             else if (detectedObject.CompareTag("Perk"))
             {
                 perkScript perk = detectedObject.GetComponent<perkScript>();
@@ -437,5 +446,15 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
-
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "MUD") {
+            speed *= 0.75f;
+        }
+    }
+    
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.tag == "MUD") {
+            speed *= 1.25f;
+        }
+    }
 }

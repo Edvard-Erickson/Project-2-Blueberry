@@ -7,6 +7,7 @@ public class GunData : ScriptableObject
 {
     public string gunName;
     public int damage;
+    public int magSize;
     public int maxAmmo;
     public float fireRate;
     public GunType gunType; // Enum for gun firing mode (Automatic/Semi-Automatic)
@@ -16,10 +17,22 @@ public class GunData : ScriptableObject
     public bool isShotgun;
     public int pelletCount;
     public int spreadAngle;
-
+    public float reloadTime;
     //for shop
     public bool isPurchased;
     public int price;
 
+
+
     public enum GunType { SemiAutomatic, Automatic }
+
+    public void activateDoubleTap()
+    {
+        damage *= damage;
+    }
+
+    public void activateSpeedCola()
+    {
+        reloadTime *= .75f;
+    }
 }
