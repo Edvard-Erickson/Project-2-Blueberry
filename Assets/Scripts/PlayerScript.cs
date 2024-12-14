@@ -193,6 +193,7 @@ public class PlayerScript : MonoBehaviour
             loadout[currentSlotIndex] = newGun;
             newGun.isPurchased = true;
             EquipWeapon(currentSlotIndex);
+            MSMScript.UpdateAmmoDisplay();
             Debug.Log("Replaced gun in current slot");
         }
     }
@@ -385,11 +386,9 @@ public class PlayerScript : MonoBehaviour
                 interactionText.enabled = true;
                 if (gunScript.ammoRemaining == 0) {
                     interactionText.text = $"You're out of ammo! Press 'E' to get a free mag!";
-                    gunScript.freeMag();
                 }
                 else {
                     interactionText.text = $"Press 'E' to fill your ammo to the max! [Cost: 500]";
-                    gunScript.fullAmmo();
                 }
             }
             else if (detectedObject.CompareTag("Perk"))
@@ -441,6 +440,16 @@ public class PlayerScript : MonoBehaviour
                         perk.UsePerk();
                         perk.SetPerkOwned(this);
                     }
+                }
+            }
+            else if (detectedObject.CompareTag("ammoCrate"))
+            {
+                ammoCrateScript crate = detectedObject.GetComponent<ammoCrateScript>();
+                if (gunScript.ammoRemaining == 0) {
+                    gunScript.freeMag();
+                }
+                else {
+                    gunScript.fullAmmo();
                 }
             }
         }
