@@ -115,31 +115,12 @@ public class GunScript : MonoBehaviour
         yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
         if (ammoRemaining > 0) {
             if (ammoRemaining >= gunData.magSize) {
+                int ammoInMag = currentAmmo;
                 currentAmmo = gunData.magSize;
-                ammoRemaining -= gunData.magSize;
+                ammoRemaining -= gunData.magSize-ammoInMag;
                 _manager.UpdateAmmoDisplay();
             }
             else {
-                currentAmmo = ammoRemaining;
-                ammoRemaining = 0;
-                _manager.UpdateAmmoDisplay();
-            }
-        }
-    }
-
-    IEnumerator ReloadCoroutine()
-    {
-        yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
-        if (ammoRemaining > 0)
-        {
-            if (ammoRemaining >= gunData.magSize)
-            {
-                currentAmmo = gunData.magSize;
-                ammoRemaining -= gunData.magSize;
-                _manager.UpdateAmmoDisplay();
-            }
-            else
-            {
                 currentAmmo = ammoRemaining;
                 ammoRemaining = 0;
                 _manager.UpdateAmmoDisplay();
