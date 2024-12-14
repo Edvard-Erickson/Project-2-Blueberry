@@ -10,6 +10,8 @@ public class powerUpScript : MonoBehaviour
     public bool isDoublePoints;
     public bool isInstantKill;
     public GameObject powerUpPrefab;
+    private string type;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,22 +22,27 @@ public class powerUpScript : MonoBehaviour
     }
     private void Awake()
     {
+        
         int random = Random.Range(0, 3);
         if (random == 0)
         {
             isNuc = true;
+            type = "nuc";
         }
         else if(random == 1)
         {
             isMaxAmmo = true;
+            type = "ammo";
         }
         else if (random == 2)
         {
             isDoublePoints = true;
+            type = "points";
         }
         else if (random == 3)
         {
             isInstantKill = true;
+            type = "kill";
         }
     }
 
@@ -53,7 +60,17 @@ public class powerUpScript : MonoBehaviour
             Instantiate(powerUpPrefab, position, Quaternion.identity);
         }
 
-    } 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log(type);
+            handlePowerup();
+            Destroy(gameObject);
+
+        }
+    }
 
     public void handlePowerup()
     {
