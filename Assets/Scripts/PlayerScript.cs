@@ -73,6 +73,11 @@ public class PlayerScript : MonoBehaviour
         DetectNearbyObjects();
         HandleInteractionText();
 
+        if (hasJuggernog)
+        {
+            maxHealth = 5;
+        }
+
         //checks to see if 'e' has been pressed
         if (Input.GetKeyDown(KeyCode.E))
         {

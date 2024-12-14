@@ -12113,6 +12113,18 @@ PrefabInstance:
       propertyPath: juggernogCost
       value: 2500
       objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.b
+      value: 0.24463025
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5968457
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.r
+      value: 0.836478
+      objectReference: {fileID: 0}
     - target: {fileID: 9007735520023946811, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: m_Name
       value: Perk (2)
@@ -25730,6 +25742,18 @@ PrefabInstance:
     - target: {fileID: 4587902010138251846, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: juggernogCost
       value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.b
+      value: 0.032415535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8900802
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.r
+      value: 0.93710685
       objectReference: {fileID: 0}
     - target: {fileID: 9007735520023946811, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: m_Name
@@ -69235,6 +69259,18 @@ PrefabInstance:
       propertyPath: juggernogCost
       value: 2500
       objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.b
+      value: 0.120189026
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.g
+      value: 0.120189026
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.r
+      value: 0.64779866
+      objectReference: {fileID: 0}
     - target: {fileID: 9007735520023946811, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: m_Name
       value: Perk (3)
@@ -71790,6 +71826,18 @@ PrefabInstance:
     - target: {fileID: 4587902010138251846, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: juggernogCost
       value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.b
+      value: 0.114242226
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.g
+      value: 0.42767292
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410523253572324612, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
+      propertyPath: m_Color.r
+      value: 0.06320948
       objectReference: {fileID: 0}
     - target: {fileID: 9007735520023946811, guid: b9ddb28c5e67ab04b93c2642ee094bff, type: 3}
       propertyPath: m_Name
