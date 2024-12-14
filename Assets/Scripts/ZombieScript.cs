@@ -21,10 +21,12 @@ public class ZombieScript : MonoBehaviour
 
     public float hitCooldown;
     private float lastHitTime;
+    private powerUpScript powerUpScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        powerUpScript = FindObjectOfType<powerUpScript>();
         rbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         target = player.transform;
@@ -53,6 +55,7 @@ public class ZombieScript : MonoBehaviour
         {
             MSMScript.killedZombie();
             Instantiate(ps, transform.position, Quaternion.identity);
+            powerUpScript.spawnPowerup(transform.position);
             Destroy(gameObject);
         }
     }

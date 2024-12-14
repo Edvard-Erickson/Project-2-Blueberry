@@ -9,14 +9,34 @@ public class powerUpScript : MonoBehaviour
     public bool isMaxAmmo;
     public bool isDoublePoints;
     public bool isInstantKill;
+    public GameObject powerUpPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isNuc = false;
+        isMaxAmmo = false;
+        isDoublePoints = false;
+        isInstantKill = false;
     }
     private void Awake()
     {
-        
+        int random = Random.Range(0, 3);
+        if (random == 0)
+        {
+            isNuc = true;
+        }
+        else if(random == 1)
+        {
+            isMaxAmmo = true;
+        }
+        else if (random == 2)
+        {
+            isDoublePoints = true;
+        }
+        else if (random == 3)
+        {
+            isInstantKill = true;
+        }
     }
 
     // Update is called once per frame
@@ -25,8 +45,13 @@ public class powerUpScript : MonoBehaviour
         
     }
 
-    public void spawnPowerup()
+    public void spawnPowerup(Vector3 position)
     {
+        int spawnChance = Random.Range(1, 5);
+        if (spawnChance < 6) 
+        {
+            Instantiate(powerUpPrefab, position, Quaternion.identity);
+        }
 
     } 
 

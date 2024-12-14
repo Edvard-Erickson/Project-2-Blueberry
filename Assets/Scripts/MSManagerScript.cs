@@ -40,6 +40,7 @@ public class MSManagerScript : MonoBehaviour
     GunData gunData;
     public TMP_Text ammoText;
     public AudioSource reloadSound;
+    public AudioClip reload;
     public bool isDoublePoints;
 
     /*public BulletPool bulletPool;
@@ -256,10 +257,12 @@ public class MSManagerScript : MonoBehaviour
     //}
 
     public void playerHurtSound() {
+        
         hurtSound.Play();
     }
     
     public void reloadGunSound() {
+        reloadSound.clip = reload;
         reloadSound.Play();
     }
     public void GameOver()
