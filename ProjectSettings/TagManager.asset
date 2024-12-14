@@ -55,3 +55,6 @@ TagManager:
   - name: Visible
     uniqueID: 426183693
     locked: 0
+  - name: FOG
+    uniqueID: 4098699977
+    locked: 0

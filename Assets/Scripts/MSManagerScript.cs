@@ -11,6 +11,7 @@ using System;
 
 public class MSManagerScript : MonoBehaviour
 {
+    public GameObject explosion;
     public GameObject zombiePrefab;
     public GameObject[] spawnPoints;
     public int zombiesPerRound;
