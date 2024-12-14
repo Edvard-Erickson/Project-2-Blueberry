@@ -14,6 +14,7 @@ public class GunScript : MonoBehaviour
     MSManagerScript _manager;
     public int ammoRemaining;
     PlayerScript playerScript;
+    ammoCrateScript crateScript;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,14 @@ public class GunScript : MonoBehaviour
         _manager = FindAnyObjectByType<MSManagerScript>();
         ammoRemaining = gunData.maxAmmo;
         _manager.UpdateAmmoDisplay();
-        playerScript=FindObjectOfType<PlayerScript>();
-        crateScript=FindObjectOfType<ammoCrateScript>();
+        playerScript = FindObjectOfType<PlayerScript>();
+        crateScript = FindObjectOfType<ammoCrateScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //_manager.UpdateAmmoDisplay();
     }
 
     public void Fire()
@@ -47,7 +48,7 @@ public class GunScript : MonoBehaviour
 
     public void FireSingleBullet()
     {
-        if(Time.time - lastFiredTime >= gunData.fireRate && currentAmmo > 0)
+        if (Time.time - lastFiredTime >= gunData.fireRate && currentAmmo > 0)
         {
             Vector3 bulletDirection = (shootPoint.position - transform.position).normalized;
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
@@ -56,7 +57,7 @@ public class GunScript : MonoBehaviour
             {
                 if (playerScript.hasDoubleTap == true)
                 {
-                    bulletScript.Initialize(bulletDirection, gunData.damage*2);
+                    bulletScript.Initialize(bulletDirection, gunData.damage * 2);
                 }
                 else
                 {
@@ -65,6 +66,7 @@ public class GunScript : MonoBehaviour
             }
 
             currentAmmo--;
+            lastFiredTime = Time.time + 0.01f;
         }
     }
 
@@ -103,41 +105,37 @@ public class GunScript : MonoBehaviour
             currentAmmo--;
         }
     }
-    public IEnumerator Reload()
+    public void Reload()
     {
-        Debug.Log("reloading");
-        playerScript.canFire = false;
-        if (playerScript.hasSpeedCola)
-        {
-            yield return new WaitForSeconds(gunData.reloadTime / 2);
-        }
-        else
-        {
-            yield return new WaitForSeconds(gunData.reloadTime);
-        }
-        int bulletsNeeded = gunData.maxMag - currentAmmo;
-        if (bulletsNeeded > 0)
-        {
-            if (gunData.reserveBulletSize >= bulletsNeeded)
-            {
-                gunData.reserveBulletSize -= bulletsNeeded;
-                currentAmmo = gunData.maxMag;
-            }
-        }
-        else
-        {
-            currentAmmo += gunData.reserveBulletSize;
-            gunData.reserveBulletSize = 0;
-        }
-        playerScript.canFire = true;
-        ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
+        StartCoroutine(ReloadCoroutine());
     }
 
-    public void freeMag() {
+    IEnumerator ReloadCoroutine()
+    {
+        yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
+        if (ammoRemaining > 0)
+        {
+            if (ammoRemaining >= gunData.magSize)
+            {
+                currentAmmo = gunData.magSize;
+                ammoRemaining -= gunData.magSize;
+                _manager.UpdateAmmoDisplay();
+            }
+            else
+            {
+                currentAmmo = ammoRemaining;
+                ammoRemaining = 0;
+                _manager.UpdateAmmoDisplay();
+            }
+        }
+    }
+    public void freeMag()
+    {
         ammoRemaining = gunData.magSize;
     }
 
-    public void fullAmmo() {
+    public void fullAmmo()
+    {
         ammoRemaining = gunData.maxAmmo;
         _manager.playerScore -= crateScript.ammoCost;
     }

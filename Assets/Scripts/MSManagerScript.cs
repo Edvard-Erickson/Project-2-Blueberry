@@ -40,6 +40,7 @@ public class MSManagerScript : MonoBehaviour
     GunData gunData;
     public TMP_Text ammoText;
     public AudioSource reloadSound;
+    public bool isDoublePoints;
 
     // Start is called before the first frame update
     void Start()
@@ -134,6 +135,7 @@ public class MSManagerScript : MonoBehaviour
         spawnZombies();
         roundInProgress = true;
         roundNumber.text = "" + currentRound;
+        isDoublePoints = false;
     }
 
     void spawnZombies()
@@ -173,13 +175,27 @@ public class MSManagerScript : MonoBehaviour
     //adds 10 to playerScore each time the player hits a zombie
     public void hitZombie()
     {
-        playerScore += 10;
-        playerScoreText.text = "Score " + playerScore;
+        if (isDoublePoints)
+        {
+            playerScore += 20;
+            playerScoreText.text = "Score " + playerScore;
+        }
+        else
+        {
+            playerScore += 10;
+            playerScoreText.text = "Score " + playerScore;
+        }
     }
 
     //adds 100 to playerScore each time the player kills a zombie
     public void killedZombie()
     {
+        if (isDoublePoints)
+        {
+            playerScore += 200;
+            playerScoreText.text = "Score " + playerScore;
+            zombiesAlive--;
+        }
         playerScore += 100;
         playerScoreText.text = "Score " + playerScore;
         zombiesAlive--;
@@ -272,8 +288,7 @@ public class MSManagerScript : MonoBehaviour
     public void UpdateAmmoDisplay()
     {
         int currentAmmo = gunScript.currentAmmo;
-        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxMag}";
-    Debug.Log("UpdateAmmoDisplay called");
+        
     ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
     }
 }

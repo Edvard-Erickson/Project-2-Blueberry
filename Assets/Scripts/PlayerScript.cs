@@ -379,7 +379,7 @@ public class PlayerScript : MonoBehaviour
                     }
                 }
             }
-            if (detectedObject.CompareTag("ammoCrate"))
+            else if (detectedObject.CompareTag("ammoCrate"))
             {
                 ammoCrateScript crate = detectedObject.GetComponent<ammoCrateScript>();
                 interactionText.enabled = true;
