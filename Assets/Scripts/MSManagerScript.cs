@@ -273,6 +273,7 @@ public class MSManagerScript : MonoBehaviour
     {
         int currentAmmo = gunScript.currentAmmo;
         ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxAmmo}";
+        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxMag}";
     }
 }
 }

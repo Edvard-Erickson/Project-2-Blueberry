@@ -11,13 +11,9 @@ public class GunScript : MonoBehaviour
     private float lastFiredTime;
     public Transform shootPoint;
     public GameObject bulletPrefab;
-<<<<<<< Updated upstream
     MSManagerScript _manager;
-=======
     private PlayerScript playerScript;
     private TextMeshProUGUI ammoText;
-    
->>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
@@ -110,16 +106,6 @@ public class GunScript : MonoBehaviour
             lastFiredTime = Time.time;
         }
     }
-<<<<<<< Updated upstream
-
-    public void Reload()
-    {
-        if (currentAmmo < gunData.maxAmmo)
-        {
-            currentAmmo = gunData.maxAmmo;
-            _manager.reloadSound.Play();
-        }
-=======
     public IEnumerator Reload()
     {
         Debug.Log("reloading");
@@ -148,7 +134,6 @@ public class GunScript : MonoBehaviour
         }
         playerScript.canFire = true;
         ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
->>>>>>> Stashed changes
     }
 
     
