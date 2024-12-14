@@ -13,6 +13,7 @@ TagManager:
   - ammoCrate
   - MUD
   - Generator
+  - PaP
   layers:
   - Default
   - TransparentFX

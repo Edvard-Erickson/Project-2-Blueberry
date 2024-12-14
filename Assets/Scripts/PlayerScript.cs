@@ -407,6 +407,11 @@ public class PlayerScript : MonoBehaviour
                 interactionText.enabled = true;
                 interactionText.text = $"[{MSMScript.generatorsOn}/6] Press 'E' to repair Generator [Cost: [1000]]";
             }
+            else if (detectedObject.CompareTag("PaP"))
+            {
+                interactionText.enabled = true;
+                interactionText.text = $"Press 'E' to upgrade gun [Cost: [5000]]";
+            }
         }
         else
         {
@@ -460,6 +465,15 @@ public class PlayerScript : MonoBehaviour
                     MSMScript.playerScore -= 1000;
                     MSMScript.repairGenerator();
                     detectedObject.layer = 9;
+                }
+            }
+            else if (detectedObject.CompareTag("PaP"))
+            {
+                Debug.Log("Interacted with PaP");
+                if (MSMScript.playerScore >= 5000 && MSMScript.thirdStep)
+                {
+                    MSMScript.playerScore -= 5000;
+                    loadout[currentSlotIndex].isUpgraded = true;
                 }
             }
         }

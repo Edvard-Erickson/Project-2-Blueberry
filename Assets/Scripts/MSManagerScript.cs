@@ -99,6 +99,21 @@ public class MSManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!firstStep)
+        {
+            checkFirstStep();
+        }
+        else if (!secondStep)
+        {
+            checkSecondStep();
+        }
+        else if (!thirdStep)
+        {
+            checkThirdStep();
+        }
+
+
         if (roundInProgress)
         {
             if(zombiesAlive <= 0)
@@ -336,6 +351,9 @@ public class MSManagerScript : MonoBehaviour
         generatorsOn++;
         if (generatorsOn == 6) {
             allGeneratorsOn = true;
+            Destroy(bunkerDoor);
+            Destroy(bunkerDoor2);
+            AstarPath.active.Scan();
         }
     }
 
@@ -353,12 +371,9 @@ public class MSManagerScript : MonoBehaviour
         if(key1 && key2)
         {
             firstStep = true;
-            Destroy(bunkerDoor);
-            Destroy(bunkerDoor2);
             r1.SetActive(true);
             r2.SetActive(true);
             r3.SetActive(true);
-            AstarPath.active.Scan();
         }
     }
 

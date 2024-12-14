@@ -66,6 +66,7 @@ public class storeScript : MonoBehaviour
             assaultRifle.isPurchased = true;
 
             _playerScript.PurchasedWeapon(assaultRifle);
+            assaultRifle.isUpgraded = false;
 
             _sceneScript.playerScore -= assaultRifle.price;
             rifleText.text = "Purchased";
@@ -79,6 +80,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(shotgun);
+            shotgun.isUpgraded = false;
 
             _sceneScript.playerScore -= shotgun.price;
             shotgunText.text = "Purchased";
@@ -91,6 +93,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(autoPistol);
+            autoPistol.isUpgraded = false;
 
             _sceneScript.playerScore -= autoPistol.price;
             AutoPistol.text = "Purchased";
@@ -103,6 +106,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(autoShotgun);
+            autoShotgun.isUpgraded = false;
 
             _sceneScript.playerScore -= autoShotgun.price;
             AutoShotgun.text = "Purchased";
@@ -115,6 +119,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(sniperRifle);
+            sniperRifle.isUpgraded = false;
 
             _sceneScript.playerScore -= sniperRifle.price;
             Sniper.text = "Purchased";
@@ -127,6 +132,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(lmg);
+            lmg.isUpgraded = false;
 
             _sceneScript.playerScore -= lmg.price;
             LMG.text = "Purchased";
@@ -139,6 +145,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(dmr);
+            dmr.isUpgraded = false;
 
             _sceneScript.playerScore -= dmr.price;
             DMR.text = "Purchased";
@@ -151,6 +158,7 @@ public class storeScript : MonoBehaviour
 
             //set the player's weapon with the gunData
             _playerScript.PurchasedWeapon(smg);
+            smg.isUpgraded = false;
 
             _sceneScript.playerScore -= smg.price;
             SMG.text = "Purchased";

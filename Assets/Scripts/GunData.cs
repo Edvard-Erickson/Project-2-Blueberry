@@ -13,6 +13,8 @@ public class GunData : ScriptableObject
     public GunType gunType; // Enum for gun firing mode (Automatic/Semi-Automatic)
     public GameObject gunPrefab;
 
+    public bool isUpgraded;
+
     //for shotgun
     public bool isShotgun;
     public int pelletCount;

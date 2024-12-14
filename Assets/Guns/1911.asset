@@ -19,9 +19,10 @@ MonoBehaviour:
   fireRate: 0.1
   gunType: 0
   gunPrefab: {fileID: 5169027830734416536, guid: 7634fdc30d5c07f4084f5edc9290b36b, type: 3}
+  isUpgraded: 1
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
   reloadTime: 0.5
-  isPurchased: 1
+  isPurchased: 0
   price: 0

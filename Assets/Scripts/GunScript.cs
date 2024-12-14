@@ -26,6 +26,12 @@ public class GunScript : MonoBehaviour
         _manager.UpdateAmmoDisplay();
         playerScript = FindObjectOfType<PlayerScript>();
         crateScript = FindObjectOfType<ammoCrateScript>();
+
+        if (gunData.isUpgraded)
+        {
+            currentAmmo *= 2;
+            ammoRemaining *= 2;
+        }
     }
 
     // Update is called once per frame
@@ -56,14 +62,17 @@ public class GunScript : MonoBehaviour
             BulletScript bulletScript = bullet.GetComponent<BulletScript>();
             if (bulletScript != null)
             {
+                int damage = gunData.damage;
+
                 if (playerScript.hasDoubleTap == true)
                 {
-                    bulletScript.Initialize(bulletDirection, gunData.damage * 2);
+                    damage *= 2;
                 }
-                else
+                if (gunData.isUpgraded)
                 {
-                    bulletScript.Initialize(bulletDirection, gunData.damage);
+                    damage *= 2;
                 }
+                bulletScript.Initialize(bulletDirection, damage);
             }
 
             currentAmmo--;
