@@ -18,12 +18,11 @@ public class GunScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject player = GameObject.Find("Player");
-        playerScript = player.GetComponent<PlayerScript>();
-        currentAmmo = gunData.maxMag;
-        GameObject text = GameObject.Find("AmmoText");
-        ammoText = text.GetComponent<TextMeshProUGUI>();
-        ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
+        currentAmmo = gunData.magSize;
+        _manager = FindAnyObjectByType<MSManagerScript>();
+        ammoRemaining = gunData.maxAmmo;
+        _manager.UpdateAmmoDisplay();
+        playerScript=FindObjectOfType<PlayerScript>();
     }
 
     // Update is called once per frame
@@ -42,6 +41,7 @@ public class GunScript : MonoBehaviour
         {
             FireSingleBullet();
         }
+        _manager.UpdateAmmoDisplay();
     }
 
     public void FireSingleBullet()
@@ -55,7 +55,7 @@ public class GunScript : MonoBehaviour
             {
                 if (playerScript.hasDoubleTap == true)
                 {
-                    bulletScript.Initialize(bulletDirection, gunData.damage);
+                    bulletScript.Initialize(bulletDirection, gunData.damage*2);
                 }
                 else
                 {
@@ -64,8 +64,6 @@ public class GunScript : MonoBehaviour
             }
 
             currentAmmo--;
-            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
-            lastFiredTime = Time.time;
         }
     }
 
@@ -102,8 +100,6 @@ public class GunScript : MonoBehaviour
 
             // Decrease ammo and reset the fire time
             currentAmmo--;
-            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
-            lastFiredTime = Time.time;
         }
     }
     public IEnumerator Reload()
@@ -135,6 +131,4 @@ public class GunScript : MonoBehaviour
         playerScript.canFire = true;
         ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
     }
-
-    
 }

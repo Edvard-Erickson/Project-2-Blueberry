@@ -7,19 +7,17 @@ public class GunData : ScriptableObject
 {
     public string gunName;
     public int damage;
-    public int maxMag;
+    public int magSize;
+    public int maxAmmo;
     public float fireRate;
     public GunType gunType; // Enum for gun firing mode (Automatic/Semi-Automatic)
     public GameObject gunPrefab;
-    public float reloadTime;
-    public int reserveBulletSize;
-    
 
     //for shotgun
     public bool isShotgun;
     public int pelletCount;
     public int spreadAngle;
-
+    public float reloadTime;
     //for shop
     public bool isPurchased;
     public int price;
@@ -30,11 +28,11 @@ public class GunData : ScriptableObject
 
     public void activateDoubleTap()
     {
-        damage += damage;
+        damage *= damage;
     }
 
     public void activateSpeedCola()
     {
-        reloadTime = reloadTime / 2;
+        reloadTime *= .75f;
     }
 }

@@ -48,8 +48,6 @@ public class PlayerScript : MonoBehaviour
     private Vector2 aimTarget;
 
     private bool isFiring;
-
-
     //booleans to see if player already has the perk
     public bool hasJuggernog;
     public bool hasDoubleTap;
@@ -57,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     public bool hasStaminup;
     public AudioSource reload;
 
+    GunScript gunScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +63,7 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
+        gunScript=GameObject.FindObjectOfType<GunScript>();
 
         loadout[0].isPurchased = true;
         EquipWeapon(currentSlotIndex);
@@ -148,7 +148,7 @@ public class PlayerScript : MonoBehaviour
             GunScript gunScript = activeWeapon.GetComponent<GunScript>();
             if (gunScript != null)
             {
-                StartCoroutine(gunScript.Reload()); // Call the fire method of the current gun
+                gunScript.Reload(); // Call the fire method of the current gun
             }
         }
     }

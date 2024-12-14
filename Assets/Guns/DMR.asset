@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: DMR
   damage: 100
-  maxAmmo: 20
+  magSize: 20
+  maxAmmo: 160
   fireRate: 0.3
   gunType: 0
   gunPrefab: {fileID: 4544928215415600679, guid: 88191fa211757804cac9ce4b5610e2c9, type: 3}
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
+  reloadTime: 1
   isPurchased: 0
   price: 1500

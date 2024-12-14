@@ -149,6 +149,6 @@ public class perkScript : MonoBehaviour
 
     private void ApplyStaminup(PlayerScript playerScript)
     {
-        playerScript.speed = playerScript.speed * 1.1f;
+        playerScript.speed = playerScript.speed * 1.5f;
     }
 }

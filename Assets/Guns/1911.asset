@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: 1911
   damage: 10
-  maxMag: 12
+  magSize: 8
+  maxAmmo: 64
   fireRate: 0.1
   gunType: 0
   gunPrefab: {fileID: 5169027830734416536, guid: 7634fdc30d5c07f4084f5edc9290b36b, type: 3}
@@ -23,5 +24,5 @@ MonoBehaviour:
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
-  isPurchased: 1
+  isPurchased: 0
   price: 0
