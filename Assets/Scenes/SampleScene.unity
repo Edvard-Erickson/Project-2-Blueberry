@@ -30390,6 +30390,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d83888ca449aa68489447ab12b9b5bd6, type: 3}
+--- !u!1 &972037099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 972037101}
+  - component: {fileID: 972037100}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &972037100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972037099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fcb94068a17914c9215fe79375ff26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNuc: 0
+  isMaxAmmo: 0
+  isDoublePoints: 0
+  isInstantKill: 0
+  powerUpPrefab: {fileID: 660534260718424993, guid: a6a56343595099341990b696567f16dc, type: 3}
+--- !u!4 &972037101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972037099}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &972731599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6128987538900675349, guid: f3de38ba1f689c6479baa4df67be8b48, type: 3}
@@ -38858,21 +38907,21 @@ MonoBehaviour:
   rune1: 0
   rune2: 0
   rune3: 0
-  r1: {fileID: 1667036112}
-  r2: {fileID: 1234624121}
-  r3: {fileID: 2058606587}
+  r1: {fileID: 0}
+  r2: {fileID: 0}
+  r3: {fileID: 0}
   key1: 0
   key2: 0
-  k1: {fileID: 833150883}
-  k2: {fileID: 282973476}
+  k1: {fileID: 0}
+  k2: {fileID: 0}
   weaponPart1: 0
   weaponPart2: 0
   weaponPart3: 0
-  wp1: {fileID: 1094303378}
-  wp2: {fileID: 453389519}
-  wp3: {fileID: 907059412}
-  bunkerDoor: {fileID: 1090875217}
-  bunkerDoor2: {fileID: 597408551}
+  wp1: {fileID: 0}
+  wp2: {fileID: 0}
+  wp3: {fileID: 0}
+  bunkerDoor: {fileID: 0}
+  bunkerDoor2: {fileID: 0}
 --- !u!82 &1256592838
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70615,6 +70664,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 972037101}
   - {fileID: 306417127}
   - {fileID: 1256592836}
   - {fileID: 1213434462}
@@ -70628,7 +70678,6 @@ SceneRoots:
   - {fileID: 2015639633}
   - {fileID: 1793091984}
   - {fileID: 9143584281320405485}
-  - {fileID: 1833176524}
   - {fileID: 833150886}
   - {fileID: 282973480}
   - {fileID: 1090875220}

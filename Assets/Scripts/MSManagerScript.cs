@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using TMPro;
@@ -6,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using System;
+
+
 
 public class MSManagerScript : MonoBehaviour
 {
@@ -42,12 +44,9 @@ public class MSManagerScript : MonoBehaviour
     GunData gunData;
     public TMP_Text ammoText;
     public AudioSource reloadSound;
-    public AudioClip reload;
     public bool isDoublePoints;
     public int generatorsOn;
     public bool allGeneratorsOn;
-
-    //easter egg components
     public bool firstStep = false;
     public bool secondStep = false;
     public bool thirdStep = false;
@@ -100,18 +99,6 @@ public class MSManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!firstStep)
-        {
-            checkFirstStep();
-        } else if (!secondStep)
-        {
-            checkSecondStep();
-        } else if (!thirdStep)
-        {
-            checkThirdStep();
-        }
-
-
         if (roundInProgress)
         {
             if(zombiesAlive <= 0)
@@ -303,12 +290,10 @@ public class MSManagerScript : MonoBehaviour
     //}
 
     public void playerHurtSound() {
-        
         hurtSound.Play();
     }
     
     public void reloadGunSound() {
-        reloadSound.clip = reload;
         reloadSound.Play();
     }
     public void GameOver()
@@ -351,7 +336,10 @@ public class MSManagerScript : MonoBehaviour
         generatorsOn++;
         if (generatorsOn == 6) {
             allGeneratorsOn = true;
-    public void checkFirstStep()
+        }
+    }
+
+     public void checkFirstStep()
     {
         if (k1.GetComponent<runeScript>().isActivated)
         {
