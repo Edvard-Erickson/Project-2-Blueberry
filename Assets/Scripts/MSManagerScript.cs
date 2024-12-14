@@ -16,7 +16,7 @@ public class MSManagerScript : MonoBehaviour
     private bool roundInProgress;
     private int zombiesAlive;
 
-    private int currentRound;
+    public int currentRound;
 
     public int playerScore;
     public TextMeshProUGUI playerScoreText;
@@ -42,6 +42,9 @@ public class MSManagerScript : MonoBehaviour
     GunData gunData;
     public TMP_Text ammoText;
 
+    /*public BulletPool bulletPool;
+    public GameObject bulletPrefab;*/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +52,10 @@ public class MSManagerScript : MonoBehaviour
         timeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
         startTime = Time.time;
         roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
-        currentRound = 0;
+        currentRound = 50;
         StartRound();
         _shopOpen = false;
+        /*bulletPool = new BulletPool(bulletPrefab, true, 20);*/
     }
 
     // Update is called once per frame
@@ -138,8 +142,8 @@ public class MSManagerScript : MonoBehaviour
     {
         if (zombiesLeft > 0)
         {
-            // Track how much time has passed to manage the spawn rate
-            float spawnInterval = spawnDuration / zombiesPerRound * 1.5f; // Increase the delay by 50%
+            // Calculate the spawn interval based on the current round
+            float spawnInterval = Mathf.Clamp(3f - currentRound * 0.1f, 0.1f, 3f); // Decreases the interval over time, but limits the minimum to 0.1 seconds
 
             // Start a coroutine to spawn zombies gradually over time
             StartCoroutine(SpawnZombiesOverTime(spawnInterval));
