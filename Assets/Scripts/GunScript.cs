@@ -104,6 +104,7 @@ public class GunScript : MonoBehaviour
 
             // Decrease ammo and reset the fire time
             currentAmmo--;
+            lastFiredTime = Time.time + 0.01f;
         }
     }
     public void Reload()
@@ -118,8 +119,9 @@ public class GunScript : MonoBehaviour
         {
             if (ammoRemaining >= gunData.magSize)
             {
+                int ammoInMag = currentAmmo;
                 currentAmmo = gunData.magSize;
-                ammoRemaining -= gunData.magSize;
+                ammoRemaining -= gunData.magSize-ammoInMag;
                 _manager.UpdateAmmoDisplay();
             }
             else
