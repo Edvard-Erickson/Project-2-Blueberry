@@ -41,7 +41,7 @@ public class PlayerScript : MonoBehaviour
     public int currentSlotIndex = 0;
     private GameObject activeWeapon;
     public Transform weaponHolder;
-    public GunScript activeGunScript;
+    GunScript gunScript;
 
     private Vector2 aimTarget;
 
@@ -52,7 +52,6 @@ public class PlayerScript : MonoBehaviour
     public bool hasSpeedCola;
     public bool hasStaminup;
     public AudioSource reload;
-    GunScript gunScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +59,7 @@ public class PlayerScript : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         health = maxHealth;
         MSMScript = FindAnyObjectByType<MSManagerScript>();
-        gunScript=GameObject.FindObjectOfType<GunScript>();
+        gunScript = GameObject.FindObjectOfType<GunScript>();
 
         loadout[0].isPurchased = true;
         EquipWeapon(currentSlotIndex);
@@ -89,14 +88,14 @@ public class PlayerScript : MonoBehaviour
 
         
         //handle semi and automatic fire
-        if (isFiring && activeGunScript != null)
+        if (isFiring && gunScript != null)
         {
             
-            if (activeGunScript.gunData.gunType == GunData.GunType.Automatic)
+            if (gunScript.gunData.gunType == GunData.GunType.Automatic)
             {
                 Shoot();
             }
-            else if (activeGunScript.gunData.gunType == GunData.GunType.SemiAutomatic)
+            else if (gunScript.gunData.gunType == GunData.GunType.SemiAutomatic)
             {
                 // Semi-automatic fire (handled in OnFire directly)
                 if (isFiring)
@@ -107,8 +106,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     void OnMove(InputValue value)
@@ -239,10 +236,10 @@ public class PlayerScript : MonoBehaviour
         activeWeapon.transform.localRotation = Quaternion.identity;
 
         // Assign the GunData to the GunScript
-        activeGunScript = activeWeapon.GetComponent<GunScript>();
-        if (activeGunScript != null)
+        gunScript = activeWeapon.GetComponent<GunScript>();
+        if (gunScript != null)
         {
-            activeGunScript.gunData = selectedGun;
+            gunScript.gunData = selectedGun;
         }
 
         // Update the current slot index
@@ -255,9 +252,9 @@ public class PlayerScript : MonoBehaviour
     {
         if (activeWeapon != null)
         {
-            if (activeGunScript != null)
+            if (gunScript != null)
             {
-                activeGunScript.Fire(); // Call the fire method of the current gun
+                gunScript.Fire(); // Call the fire method of the current gun
             }
         }
     }
@@ -364,6 +361,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+    
     private void HandleInteractionText()
     {
         if (detectedObject != null)
@@ -380,16 +378,18 @@ public class PlayerScript : MonoBehaviour
                     }
                 }
             }
-            if (detectedObject.CompareTag("ammoCrate"))
+            else if (detectedObject.CompareTag("ammoCrate"))
             {
-                ammoCrateScript crate = detectedObject.GetComponent<ammoCrateScript>();
-                interactionText.enabled = true;
-                if (gunScript.ammoRemaining == 0) {
+                if (interactionText != null) {
+                    if (gunScript.ammoRemaining == 0) {
+                    interactionText.enabled = true;
                     interactionText.text = $"You're out of ammo! Press 'E' to get a free mag!";
                 }
                 else {
+                    interactionText.enabled = true;
                     interactionText.text = $"Press 'E' to fill your ammo to the max! [Cost: 500]";
                 }
+            }
             }
             else if (detectedObject.CompareTag("Perk"))
             {
@@ -401,8 +401,6 @@ public class PlayerScript : MonoBehaviour
                         interactionText.enabled = true;
                         interactionText.text = $"Press 'E' to acquire {perk.getPerkName()} [Cost: {perk.GetPerkCost()}]";
                     }
-
-
                 }
             }
         }
@@ -411,7 +409,6 @@ public class PlayerScript : MonoBehaviour
             interactionText.enabled = false;
         }
     }
-
 
     //method that runs when 'E' is pressed
     private void InteractWithObjects()
@@ -434,6 +431,7 @@ public class PlayerScript : MonoBehaviour
                 perkScript perk = detectedObject.GetComponent<perkScript>();
                 if (perk != null && MSMScript.playerScore >= perk.GetPerkCost())
                 {
+                    Debug.Log("Interacted with perk");
                     if (!perk.IsPerkAlreadyOwned(this))
                     {
                         MSMScript.playerScore -= perk.GetPerkCost();
@@ -444,7 +442,7 @@ public class PlayerScript : MonoBehaviour
             }
             else if (detectedObject.CompareTag("ammoCrate"))
             {
-                ammoCrateScript crate = detectedObject.GetComponent<ammoCrateScript>();
+                Debug.Log("Interacted with ammo crate");
                 if (gunScript.ammoRemaining == 0) {
                     gunScript.freeMag();
                 }

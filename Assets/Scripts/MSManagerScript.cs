@@ -51,7 +51,7 @@ public class MSManagerScript : MonoBehaviour
         timeHighscore = PlayerPrefs.GetFloat("timeHighscore", 0);
         startTime = Time.time;
         roundHighscore = PlayerPrefs.GetInt("roundHighscore", 0);
-        currentRound = 50;
+        currentRound = 0;
         StartRound();
         _shopOpen = false;
         ammoText = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
@@ -139,6 +139,10 @@ public class MSManagerScript : MonoBehaviour
         roundNumber.text = "" + currentRound;
     }
 
+    void FixedUpdate() {
+        gunScript = GameObject.FindObjectOfType<GunScript>();
+        UpdateAmmoDisplay();
+    }
     void spawnZombies()
     {
         if (zombiesLeft > 0)
@@ -156,6 +160,9 @@ public class MSManagerScript : MonoBehaviour
         // Continue spawning zombies until all are spawned
         while (zombiesLeft > 0)
         {
+            // Wait for the specified spawn interval before spawning the next one
+            yield return new WaitForSeconds(spawnInterval);
+
             GameObject spawnPoint = null;
             while (spawnPoint == null)
             {
@@ -167,9 +174,6 @@ public class MSManagerScript : MonoBehaviour
             }
             Instantiate(zombiePrefab, spawnPoint.transform.position, Quaternion.identity); // Spawn the zombie
             zombiesLeft--; // Decrease the number of zombies left
-
-            // Wait for the specified spawn interval before spawning the next one
-            yield return new WaitForSeconds(spawnInterval);
         }
     }
 

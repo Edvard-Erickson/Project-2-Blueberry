@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1147887400405783224}
   - component: {fileID: 8769804803943891615}
   - component: {fileID: 5145936528639738053}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AmmoCrate
   m_TagString: ammoCrate
   m_Icon: {fileID: 0}

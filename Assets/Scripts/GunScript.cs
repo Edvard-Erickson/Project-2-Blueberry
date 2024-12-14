@@ -50,8 +50,7 @@ public class GunScript : MonoBehaviour
     public void FireSingleBullet()
     {
         if(Time.time - lastFiredTime >= gunData.fireRate && currentAmmo > 0)
-        {
-            
+        {            
             Vector3 bulletDirection = (shootPoint.position - transform.position).normalized;
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
             BulletScript bulletScript = bullet.GetComponent<BulletScript>();
@@ -68,6 +67,7 @@ public class GunScript : MonoBehaviour
             }
 
             currentAmmo--;
+            lastFiredTime = Time.time + 0.01f;
         }
     }
 

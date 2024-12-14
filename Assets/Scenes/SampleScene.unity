@@ -37004,6 +37004,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6128987538900675349, guid: f3de38ba1f689c6479baa4df67be8b48, type: 3}
   m_PrefabInstance: {fileID: 221691390}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1228308648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112019581104324074, guid: 92142f54d4dcb4f47bb8f98c1d0451fc, type: 3}
+  m_PrefabInstance: {fileID: 9143584281320405485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1228308653
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228308648}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &1228810273 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7852019257417881178, guid: ca4465a680e70a54fb3aa55856b7599b, type: 3}
@@ -37730,6 +37762,7 @@ MonoBehaviour:
   - {fileID: 0}
   zombiesPerRound: 7
   spawnDuration: 0
+  currentRound: 0
   playerScore: 10000
   playerScoreText: {fileID: 434133951}
   roundNumber: {fileID: 1303709965}
@@ -37740,7 +37773,6 @@ MonoBehaviour:
   doorChosen: {fileID: 0}
   _shop: {fileID: 354701602}
   ammoText: {fileID: 271854956}
-  bulletPrefab: {fileID: 4846559256495998398, guid: 013fcc627ccef934e885e55d5b3fcb50, type: 3}
   reloadSound: {fileID: 0}
 --- !u!82 &1256592838
 AudioSource:
@@ -46585,7 +46617,6 @@ Transform:
   - {fileID: 1680163090}
   - {fileID: 520637620}
   - {fileID: 1069572727}
-  - {fileID: 1731403490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1486608747
@@ -54248,11 +54279,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336e35e3ae83a2b4db858df48ca6317f, type: 3}
---- !u!4 &1731403490 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6128987538900675349, guid: f3de38ba1f689c6479baa4df67be8b48, type: 3}
-  m_PrefabInstance: {fileID: 1804651624}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1734520467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69157,6 +69183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoCrate
       objectReference: {fileID: 0}
+    - target: {fileID: 112019581104324074, guid: 92142f54d4dcb4f47bb8f98c1d0451fc, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5145936528639738053, guid: 92142f54d4dcb4f47bb8f98c1d0451fc, type: 3}
       propertyPath: player
       value: 
@@ -69204,7 +69234,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 112019581104324074, guid: 92142f54d4dcb4f47bb8f98c1d0451fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228308653}
   m_SourcePrefab: {fileID: 100100000, guid: 92142f54d4dcb4f47bb8f98c1d0451fc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
