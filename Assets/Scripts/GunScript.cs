@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -10,6 +11,7 @@ public class GunScript : MonoBehaviour
     private float lastFiredTime;
     public Transform shootPoint;
     public GameObject bulletPrefab;
+<<<<<<< Updated upstream
     MSManagerScript _manager;
     public int ammoRemaining;
 
@@ -50,10 +52,18 @@ public class GunScript : MonoBehaviour
             BulletScript bulletScript = bullet.GetComponent<BulletScript>();
             if (bulletScript != null)
             {
-                bulletScript.Initialize(bulletDirection, gunData.damage);
+                if (playerScript.hasDoubleTap == true)
+                {
+                    bulletScript.Initialize(bulletDirection, gunData.damage);
+                }
+                else
+                {
+                    bulletScript.Initialize(bulletDirection, gunData.damage);
+                }
             }
 
             currentAmmo--;
+            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
             lastFiredTime = Time.time;
         }
     }
@@ -78,15 +88,25 @@ public class GunScript : MonoBehaviour
                 // Optionally, initialize pellet with damage or other properties
                 if (bulletScript != null)
                 {
-                    bulletScript.Initialize(pellet.transform.right, gunData.damage); // Divide damage for each pellet
+                    if (playerScript.hasDoubleTap == true)
+                    {
+                        bulletScript.Initialize(pellet.transform.right, gunData.damage * 2);
+                    }
+                    else
+                    {
+                        bulletScript.Initialize(pellet.transform.right, gunData.damage); // Divide damage for each pellet
+                    }
                 }
             }
 
             // Decrease ammo and reset the fire time
             currentAmmo--;
+            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
             lastFiredTime = Time.time;
         }
     }
+<<<<<<< Updated upstream
+
     public void Reload()
     {
         StartCoroutine(ReloadCoroutine());
@@ -106,5 +126,37 @@ public class GunScript : MonoBehaviour
                 ammoRemaining = 0;
             }
         }
+=======
+    public IEnumerator Reload()
+    {
+        Debug.Log("reloading");
+        playerScript.canFire = false;
+        if (playerScript.hasSpeedCola)
+        {
+            yield return new WaitForSeconds(gunData.reloadTime / 2);
+        }
+        else
+        {
+            yield return new WaitForSeconds(gunData.reloadTime);
+        }
+        int bulletsNeeded = gunData.maxMag - currentAmmo;
+        if (bulletsNeeded > 0)
+        {
+            if (gunData.reserveBulletSize >= bulletsNeeded)
+            {
+                gunData.reserveBulletSize -= bulletsNeeded;
+                currentAmmo = gunData.maxMag;
+            }
+        }
+        else
+        {
+            currentAmmo += gunData.reserveBulletSize;
+            gunData.reserveBulletSize = 0;
+        }
+        playerScript.canFire = true;
+        ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
+>>>>>>> Stashed changes
     }
+
+    
 }
