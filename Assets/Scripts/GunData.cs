@@ -22,8 +22,6 @@ public class GunData : ScriptableObject
     public bool isPurchased;
     public int price;
 
-
-
     public enum GunType { SemiAutomatic, Automatic }
 
     public void activateDoubleTap()

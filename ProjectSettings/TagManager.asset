@@ -12,6 +12,7 @@ TagManager:
   - Perk
   - ammoCrate
   - MUD
+  - Generator
   layers:
   - Default
   - TransparentFX

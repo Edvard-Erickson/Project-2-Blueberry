@@ -403,6 +403,10 @@ public class PlayerScript : MonoBehaviour
                     }
                 }
             }
+            else if (detectedObject.CompareTag("Generator")) {
+                interactionText.enabled = true;
+                interactionText.text = $"[{MSMScript.generatorsOn}/6] Press 'E' to repair Generator [Cost: [1000]]";
+            }
         }
         else
         {
@@ -446,13 +450,21 @@ public class PlayerScript : MonoBehaviour
                 if (gunScript.ammoRemaining == 0) {
                     gunScript.freeMag();
                 }
-                else {
+                else if (gunScript.ammoRemaining != gunScript.gunData.maxAmmo) {
                     gunScript.fullAmmo();
                 }
             }
+            else if (detectedObject.CompareTag("Generator")) {
+                Debug.Log("Interacted with generator");
+                if (MSMScript.playerScore >= 1000 && MSMScript.allGeneratorsOn == false) {
+                    MSMScript.playerScore -= 1000;
+                    MSMScript.repairGenerator();
+                    detectedObject.layer = 9;
+                }
+            }
         }
-
     }
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "MUD") {
             speed *= 0.75f;

@@ -42,6 +42,8 @@ public class MSManagerScript : MonoBehaviour
     public AudioSource reloadSound;
     public AudioClip reload;
     public bool isDoublePoints;
+    public int generatorsOn;
+    public bool allGeneratorsOn;
 
     /*public BulletPool bulletPool;
     public GameObject bulletPrefab;*/
@@ -61,6 +63,8 @@ public class MSManagerScript : MonoBehaviour
         UpdateAmmoDisplay();
         reloadSound = GameObject.Find("PistolReload").GetComponent<AudioSource>();
         hurtSound = GameObject.Find("PlayerHurt").GetComponent<AudioSource>();
+        allGeneratorsOn = false;
+        generatorsOn = 0;
     }
 
     // Update is called once per frame
@@ -299,6 +303,13 @@ public class MSManagerScript : MonoBehaviour
     {
         Debug.Log("UpdateAmmoDisplay called");
         ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
+    }
+
+    public void repairGenerator() {
+        generatorsOn++;
+        if (generatorsOn == 6) {
+            allGeneratorsOn = true;
+        }
     }
 }
 
