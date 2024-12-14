@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class MSManagerScript : MonoBehaviour
 {
@@ -45,6 +47,34 @@ public class MSManagerScript : MonoBehaviour
     public int generatorsOn;
     public bool allGeneratorsOn;
 
+    //easter egg components
+    public bool firstStep = false;
+    public bool secondStep = false;
+    public bool thirdStep = false;
+
+    public bool rune1 = false;
+    public bool rune2 = false;
+    public bool rune3 = false;
+    public GameObject r1;
+    public GameObject r2;
+    public GameObject r3;
+
+
+    public bool key1 = false;
+    public bool key2 = false;
+    public GameObject k1;
+    public GameObject k2;
+
+    public bool weaponPart1 = false;
+    public bool weaponPart2 = false;
+    public bool weaponPart3 = false;
+    public GameObject wp1;
+    public GameObject wp2;
+    public GameObject wp3;
+
+    public GameObject bunkerDoor;
+    public GameObject bunkerDoor2;
+
     /*public BulletPool bulletPool;
     public GameObject bulletPrefab;*/
 
@@ -70,6 +100,18 @@ public class MSManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!firstStep)
+        {
+            checkFirstStep();
+        } else if (!secondStep)
+        {
+            checkSecondStep();
+        } else if (!thirdStep)
+        {
+            checkThirdStep();
+        }
+
+
         if (roundInProgress)
         {
             if(zombiesAlive <= 0)
@@ -309,6 +351,71 @@ public class MSManagerScript : MonoBehaviour
         generatorsOn++;
         if (generatorsOn == 6) {
             allGeneratorsOn = true;
+    public void checkFirstStep()
+    {
+        if (k1.GetComponent<runeScript>().isActivated)
+        {
+            key1 = true;
+        }
+        if (k2.GetComponent<runeScript>().isActivated)
+        {
+            key2 = true;
+        }
+
+        if(key1 && key2)
+        {
+            firstStep = true;
+            Destroy(bunkerDoor);
+            Destroy(bunkerDoor2);
+            r1.SetActive(true);
+            r2.SetActive(true);
+            r3.SetActive(true);
+            AstarPath.active.Scan();
+        }
+    }
+
+    public void checkSecondStep()
+    {
+        if (r1.GetComponent<runeScript>().isActivated)
+        {
+            rune1 = true;
+        }
+        if (r2.GetComponent<runeScript>().isActivated)
+        {
+            rune2 = true;
+        }
+        if (r3.GetComponent<runeScript>().isActivated)
+        {
+            rune3 = true;
+        }
+
+        if(rune1 && rune2 && rune3)
+        {
+            secondStep = true;
+            wp1.SetActive(true);
+            wp2.SetActive(true);
+            wp3.SetActive(true);
+        }
+    }
+
+    public void checkThirdStep()
+    {
+        if (wp1.GetComponent<runeScript>().isActivated)
+        {
+            weaponPart1 = true;
+        }
+        if (wp2.GetComponent<runeScript>().isActivated)
+        {
+            weaponPart2 = true;
+        }
+        if (wp3.GetComponent<runeScript>().isActivated)
+        {
+            weaponPart3 = true;
+        }
+
+        if (weaponPart1 && weaponPart2 && weaponPart3)
+        {
+            thirdStep = true;
         }
     }
 }
