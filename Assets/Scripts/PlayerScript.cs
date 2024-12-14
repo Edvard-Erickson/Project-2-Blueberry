@@ -42,9 +42,7 @@ public class PlayerScript : MonoBehaviour
     private GameObject activeWeapon;
     public Transform weaponHolder;
     GunScript gunScript;
-
     private Vector2 aimTarget;
-
     private bool isFiring;
     //booleans to see if player already has the perk
     public bool hasJuggernog;
@@ -52,6 +50,7 @@ public class PlayerScript : MonoBehaviour
     public bool hasSpeedCola;
     public bool hasStaminup;
     public AudioSource reload;
+    powerUpScript power;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +63,7 @@ public class PlayerScript : MonoBehaviour
         loadout[0].isPurchased = true;
         EquipWeapon(currentSlotIndex);
         loadout[1] = null;
+        power = FindObjectOfType<powerUpScript>();
     }
 
     // Update is called once per frame
@@ -481,10 +481,45 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "MUD") {
-            speed *= 0.75f;
+            speed *= 
+            0.75f;
         }
+        else if (other.gameObject.tag == "Power-up") {
+            string powerUpName = other.gameObject.name;
+            if (powerUpName.Contains("Nuke Variant")) {
+                GameObject[] zombies = GameObject.FindGameObjectsWithTag("Zombie");
+                foreach (GameObject zombie in zombies)
+                {
+                    Destroy(zombie);
+                }
+            }
+            else if (powerUpName.Contains("MaxAmmo Variant")) {
+                gunScript.ammoRemaining = gunScript.gunData.maxAmmo;
+            }
+            else if (powerUpName.Contains("DoublePoints Variant")) {
+                StartCoroutine(handleDoublePoints());
+            }
+            else if (powerUpName.Contains("InstaKill Variant")) {
+                StartCoroutine(handleInstantKill());
+            }
+            Destroy(other.gameObject);
+        }
+
+    }
+    private IEnumerator handleDoublePoints()
+    {
+        MSMScript.isDoublePoints = true;
+        yield return new WaitForSeconds(30);
+        MSMScript.isDoublePoints = false;
     }
     
+    private IEnumerator handleInstantKill()
+    {
+        int damage = gunScript.gunData.damage;
+        gunScript.gunData.damage = 100000000;
+        yield return new WaitForSeconds(30);
+        gunScript.gunData.damage = damage;
+    }
     void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.tag == "MUD") {
             speed *= 1.25f;

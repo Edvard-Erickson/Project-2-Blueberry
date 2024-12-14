@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3101399024488741862}
   - component: {fileID: 4976945271918751619}
   - component: {fileID: -222780886679462499}
-  m_Layer: 13
-  m_Name: Power-Up
-  m_TagString: Untagged
+  m_Layer: 0
+  m_Name: Nuke
+  m_TagString: Power-up
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

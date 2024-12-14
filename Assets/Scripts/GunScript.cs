@@ -118,6 +118,7 @@ public class GunScript : MonoBehaviour
     }
     public void Reload()
     {
+        playerScript.canFire = false;
         StartCoroutine(ReloadCoroutine());
     }
 
@@ -140,6 +141,7 @@ public class GunScript : MonoBehaviour
                 _manager.UpdateAmmoDisplay();
             }
         }
+        playerScript.canFire = true;
     }
     public void freeMag()
     {

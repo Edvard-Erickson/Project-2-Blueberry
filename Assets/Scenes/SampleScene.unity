@@ -31198,7 +31198,10 @@ MonoBehaviour:
   isMaxAmmo: 0
   isDoublePoints: 0
   isInstantKill: 0
-  powerUpPrefab: {fileID: 660534260718424993, guid: a6a56343595099341990b696567f16dc, type: 3}
+  nukeDrop: {fileID: 7524789027607411009, guid: 3478fd7e5c92d3e4dadfa2b4b5ecf584, type: 3}
+  ammoDrop: {fileID: 2026571768579892927, guid: 80daa8221a781f74fa282eb276b3a8b7, type: 3}
+  pointsDrop: {fileID: 3820481717119131739, guid: 63be58a2707007a428e4b6b27ff68e72, type: 3}
+  instaDrop: {fileID: 8706806022380210089, guid: 186514a4bb71e0b4199eb9e820dcbe8c, type: 3}
 --- !u!4 &972037101
 Transform:
   m_ObjectHideFlags: 0
