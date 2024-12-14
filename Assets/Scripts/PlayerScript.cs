@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject explosion;
     private Camera mainCam;
     public TextMeshProUGUI interactionText;
     Rigidbody2D rbody;
@@ -486,17 +487,18 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "MUD") {
-            speed *= 
-            0.75f;
+            speed *=  0.75f;
         }
         else if (other.gameObject.tag == "Power-up") {
             string powerUpName = other.gameObject.name;
             if (powerUpName.Contains("Nuke Variant")) {
+                GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);
                 GameObject[] zombies = GameObject.FindGameObjectsWithTag("Zombie");
                 foreach (GameObject zombie in zombies)
                 {
                     Destroy(zombie);
                 }
+                Destroy(explosionInstance, 5f);
             }
             else if (powerUpName.Contains("MaxAmmo Variant")) {
                 gunScript.ammoRemaining = gunScript.gunData.maxAmmo;

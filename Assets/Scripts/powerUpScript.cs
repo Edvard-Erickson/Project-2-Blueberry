@@ -51,7 +51,7 @@ public class powerUpScript : MonoBehaviour
 
     public void spawnPowerup(Vector3 position)
     {
-        int spawnChance = Random.Range(1, 100);
+        int spawnChance = Random.Range(1, 1);
         if (spawnChance < 6) 
         {
             GameObject drop = randomPowerUp();
