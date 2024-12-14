@@ -39,6 +39,7 @@ public class MSManagerScript : MonoBehaviour
     GunScript gunScript;
     GunData gunData;
     public TMP_Text ammoText;
+    public AudioSource reloadSound;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,8 @@ public class MSManagerScript : MonoBehaviour
         ammoText = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
         gunScript = GameObject.FindObjectOfType<GunScript>();
         UpdateAmmoDisplay();
+        reloadSound = GameObject.Find("PistolReload").GetComponent<AudioSource>();
+        hurtSound = GameObject.Find("PlayerHurt").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -232,7 +235,10 @@ public class MSManagerScript : MonoBehaviour
     public void playerHurtSound() {
         hurtSound.Play();
     }
-
+    
+    public void reloadGunSound() {
+        reloadSound.Play();
+    }
     public void GameOver()
     {
         // Calculate elapsed time

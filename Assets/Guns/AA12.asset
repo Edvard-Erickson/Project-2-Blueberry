@@ -19,11 +19,9 @@ MonoBehaviour:
   fireRate: 0.3
   gunType: 1
   gunPrefab: {fileID: 3181003661459378588, guid: 8ca859958401585458249d3c8ff86f82, type: 3}
-  reloadTime: 0
-  reserveBulletSize: 0
   isShotgun: 1
   pelletCount: 7
   spreadAngle: 30
-  reloadTime: 0.5
+  reloadTime: 1
   isPurchased: 0
   price: 2500

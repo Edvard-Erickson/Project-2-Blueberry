@@ -18,8 +18,11 @@ public class perkScript : MonoBehaviour
     // Reference to the player
     public GameObject player;
 
-    //reference to GunData
-    public GunData gunData;
+    GunData gunData;
+
+    void Start() {
+        gunData = GetComponent<GunData>();
+    }
 
     // Method to apply the perk
     public void UsePerk()
@@ -144,7 +147,7 @@ public class perkScript : MonoBehaviour
 
     private void ApplySpeedCola(PlayerScript playerScript)
     {
-        gunData.activateSpeedCola();
+        
     }
 
     private void ApplyStaminup(PlayerScript playerScript)

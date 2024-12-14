@@ -22,6 +22,6 @@ MonoBehaviour:
   isShotgun: 0
   pelletCount: 0
   spreadAngle: 0
-  reloadTime: 0.5
+  reloadTime: 1
   isPurchased: 1
   price: 1000

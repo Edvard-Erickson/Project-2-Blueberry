@@ -14,7 +14,7 @@ public class GunScript : MonoBehaviour
     MSManagerScript _manager;
     public int ammoRemaining;
     PlayerScript playerScript;
-
+    ammoCrateScript crateScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +23,7 @@ public class GunScript : MonoBehaviour
         ammoRemaining = gunData.maxAmmo;
         _manager.UpdateAmmoDisplay();
         playerScript=FindObjectOfType<PlayerScript>();
+        crateScript=FindObjectOfType<ammoCrateScript>();
     }
 
     // Update is called once per frame
@@ -124,5 +125,14 @@ public class GunScript : MonoBehaviour
             }
         
         }
+    }
+
+    public void freeMag() {
+        ammoRemaining = gunData.magSize;
+    }
+
+    public void fullAmmo() {
+        ammoRemaining = gunData.maxAmmo;
+        _manager.playerScore -= crateScript.ammoCost;
     }
 }
