@@ -11,9 +11,9 @@ public class GunScript : MonoBehaviour
     private float lastFiredTime;
     public Transform shootPoint;
     public GameObject bulletPrefab;
-<<<<<<< Updated upstream
     MSManagerScript _manager;
     public int ammoRemaining;
+    PlayerScript playerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class GunScript : MonoBehaviour
         _manager = FindAnyObjectByType<MSManagerScript>();
         ammoRemaining = gunData.maxAmmo;
         _manager.UpdateAmmoDisplay();
+        playerScript=FindObjectOfType<PlayerScript>();
     }
 
     // Update is called once per frame
@@ -63,8 +64,6 @@ public class GunScript : MonoBehaviour
             }
 
             currentAmmo--;
-            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
-            lastFiredTime = Time.time;
         }
     }
 
@@ -101,16 +100,12 @@ public class GunScript : MonoBehaviour
 
             // Decrease ammo and reset the fire time
             currentAmmo--;
-            ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;
-            lastFiredTime = Time.time;
         }
     }
-<<<<<<< Updated upstream
 
     public void Reload()
     {
         StartCoroutine(ReloadCoroutine());
-        _manager.UpdateAmmoDisplay();
     }
 
     IEnumerator ReloadCoroutine()
@@ -120,43 +115,14 @@ public class GunScript : MonoBehaviour
             if (ammoRemaining >= gunData.magSize) {
                 currentAmmo = gunData.magSize;
                 ammoRemaining -= gunData.magSize;
+                _manager.UpdateAmmoDisplay();
             }
             else {
                 currentAmmo = ammoRemaining;
                 ammoRemaining = 0;
+                _manager.UpdateAmmoDisplay();
             }
+        
         }
-=======
-    public IEnumerator Reload()
-    {
-        Debug.Log("reloading");
-        playerScript.canFire = false;
-        if (playerScript.hasSpeedCola)
-        {
-            yield return new WaitForSeconds(gunData.reloadTime / 2);
-        }
-        else
-        {
-            yield return new WaitForSeconds(gunData.reloadTime);
-        }
-        int bulletsNeeded = gunData.maxMag - currentAmmo;
-        if (bulletsNeeded > 0)
-        {
-            if (gunData.reserveBulletSize >= bulletsNeeded)
-            {
-                gunData.reserveBulletSize -= bulletsNeeded;
-                currentAmmo = gunData.maxMag;
-            }
-        }
-        else
-        {
-            currentAmmo += gunData.reserveBulletSize;
-            gunData.reserveBulletSize = 0;
-        }
-        playerScript.canFire = true;
-        ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
->>>>>>> Stashed changes
     }
-
-    
 }

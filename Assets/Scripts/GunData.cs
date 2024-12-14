@@ -12,9 +12,7 @@ public class GunData : ScriptableObject
     public float fireRate;
     public GunType gunType; // Enum for gun firing mode (Automatic/Semi-Automatic)
     public GameObject gunPrefab;
-    public float reloadTime;
-    public int reserveBulletSize;
-    
+
     //for shotgun
     public bool isShotgun;
     public int pelletCount;
@@ -30,11 +28,11 @@ public class GunData : ScriptableObject
 
     public void activateDoubleTap()
     {
-        damage += damage;
+        damage *= damage;
     }
 
     public void activateSpeedCola()
     {
-        reloadTime = reloadTime / 2;
+        reloadTime *= .75f;
     }
 }
