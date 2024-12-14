@@ -14,7 +14,7 @@ public class GunScript : MonoBehaviour
     MSManagerScript _manager;
     public int ammoRemaining;
     PlayerScript playerScript;
-    ammoCrateScript crateScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +56,7 @@ public class GunScript : MonoBehaviour
             {
                 if (playerScript.hasDoubleTap == true)
                 {
-                    bulletScript.Initialize(bulletDirection, gunData.damage);
+                    bulletScript.Initialize(bulletDirection, gunData.damage*2);
                 }
                 else
                 {
@@ -103,28 +103,34 @@ public class GunScript : MonoBehaviour
             currentAmmo--;
         }
     }
-
-    public void Reload()
+    public IEnumerator Reload()
     {
-        StartCoroutine(ReloadCoroutine());
-    }
-
-    IEnumerator ReloadCoroutine()
-    {
-        yield return new WaitForSeconds(gunData.reloadTime); // wait for 1 second
-        if (ammoRemaining > 0) {
-            if (ammoRemaining >= gunData.magSize) {
-                currentAmmo = gunData.magSize;
-                ammoRemaining -= gunData.magSize;
-                _manager.UpdateAmmoDisplay();
-            }
-            else {
-                currentAmmo = ammoRemaining;
-                ammoRemaining = 0;
-                _manager.UpdateAmmoDisplay();
-            }
-        
+        Debug.Log("reloading");
+        playerScript.canFire = false;
+        if (playerScript.hasSpeedCola)
+        {
+            yield return new WaitForSeconds(gunData.reloadTime / 2);
         }
+        else
+        {
+            yield return new WaitForSeconds(gunData.reloadTime);
+        }
+        int bulletsNeeded = gunData.maxMag - currentAmmo;
+        if (bulletsNeeded > 0)
+        {
+            if (gunData.reserveBulletSize >= bulletsNeeded)
+            {
+                gunData.reserveBulletSize -= bulletsNeeded;
+                currentAmmo = gunData.maxMag;
+            }
+        }
+        else
+        {
+            currentAmmo += gunData.reserveBulletSize;
+            gunData.reserveBulletSize = 0;
+        }
+        playerScript.canFire = true;
+        ammoText.text = currentAmmo + "/" + gunData.reserveBulletSize;   
     }
 
     public void freeMag() {
