@@ -274,10 +274,8 @@ public class MSManagerScript : MonoBehaviour
 
     public void UpdateAmmoDisplay()
     {
-        int currentAmmo = gunScript.currentAmmo;
-        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.gunData.maxMag}";
-    Debug.Log("UpdateAmmoDisplay called");
-    ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
+        Debug.Log("UpdateAmmoDisplay called");
+        ammoText.text = $"{gunScript.currentAmmo}/{gunScript.ammoRemaining}";
     }
 }
 
